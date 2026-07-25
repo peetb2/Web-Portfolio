@@ -3,7 +3,7 @@ import {
   MapPin, Mail, Phone, ExternalLink, Link, MessageCircle,
   Cpu, Globe, Bot, Sparkles, ArrowRight, Star, GraduationCap
 } from 'lucide-react';
-import { personalInfo, testimonialsData, educationData } from '../data/portfolioData';
+import { personalInfo, educationData } from '../data/portfolioData';
 
 export default function About() {
   const highlights = [
@@ -231,67 +231,6 @@ export default function About() {
                 </div>
               ))}
             </div>
-
-            {/* Stats row */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-                gap: '1rem',
-              }}
-            >
-              {personalInfo.stats.map(({ label, value }) => (
-                <div
-                  key={label}
-                  className="glass-card"
-                  style={{ padding: '1.1rem', textAlign: 'center' }}
-                >
-                  <div style={{
-                    fontSize: '2rem', fontWeight: 900,
-                    background: 'var(--gradient-text)',
-                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                    lineHeight: 1.1, marginBottom: '0.3rem',
-                  }}>
-                    {value}
-                  </div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, lineHeight: 1.3 }}>
-                    {label}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Testimonials */}
-            {testimonialsData && testimonialsData.length > 0 && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                  What People Say
-                </h4>
-                {testimonialsData.map((t, i) => (
-                  <div key={i} className="glass-card" style={{ padding: '1.25rem' }}>
-                    <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '0.65rem' }}>
-                      {[...Array(5)].map((_, s) => (
-                        <Star key={s} size={14} fill="#22c55e" color="#22c55e" />
-                      ))}
-                    </div>
-                    <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.65, fontStyle: 'italic', marginBottom: '0.85rem' }}>
-                      "{t.quote}"
-                    </p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                      <img
-                        src={t.avatar}
-                        alt={t.name}
-                        style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(22,163,74,0.3)' }}
-                      />
-                      <div>
-                        <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)' }}>{t.name}</div>
-                        <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{t.role}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </div>

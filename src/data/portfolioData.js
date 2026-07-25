@@ -13,13 +13,7 @@ export const personalInfo = {
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     devto: "https://dev.to"
-  },
-  stats: [
-    { label: "Local AI Models Deployed", value: "15+" },
-    { label: "Years Experience", value: "4+" },
-    { label: "Code Commits", value: "1.4k+" },
-    { label: "Inference Latency", value: "<15ms" }
-  ]
+  }
 };
 
 export const skillsData = {
@@ -149,18 +143,5 @@ export const certificationsData = [
   }
 ];
 
-export const testimonialsData = [
-  {
-    quote: "Rachata delivered our company dashboard ahead of schedule with flawless code quality and an exquisite user interface. Highly recommended!",
-    name: "Sarah Jenkins",
-    role: "Product VP at TechVentures",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
-  },
-  {
-    quote: "Working with Rachata was a breeze. Exceptional problem solving skills, great communicator, and mastery over React and modern web tech.",
-    name: "David Chen",
-    role: "CTO at CloudScale Inc.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
-  }
-];
+
 
