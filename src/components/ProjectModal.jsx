@@ -127,13 +127,26 @@ export default function ProjectModal({ project, onClose }) {
             </div>
           )}
 
+          {/* Student Contribution */}
+          {project.studentRole && (
+            <div style={{ padding: '1rem', borderRadius: '12px', background: 'rgba(22, 163, 74, 0.08)', border: '1px solid rgba(22, 163, 74, 0.2)' }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.35rem', color: '#16a34a', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Sparkles size={16} /> Student Contribution / ส่วนที่ดำเนินงาน
+              </h4>
+              <p style={{ color: 'var(--text-primary)', fontSize: '0.9rem', lineHeight: 1.5, margin: 0 }}>
+                {project.studentRole}
+              </p>
+            </div>
+          )}
+
           {/* Action Links Footer */}
           <div
             style={{
               display: 'flex',
-              gap: '1rem',
+              gap: '0.75rem',
               paddingTop: '1rem',
               borderTop: '1px solid var(--border-color)',
+              flexWrap: 'wrap',
             }}
           >
             <a
@@ -141,18 +154,29 @@ export default function ProjectModal({ project, onClose }) {
               target="_blank"
               rel="noreferrer"
               className="btn-primary"
-              style={{ flex: 1, justifyContent: 'center' }}
+              style={{ flex: 1, minWidth: '140px', justifyContent: 'center' }}
             >
-              Live Preview <ExternalLink size={18} />
+              Live Site <ExternalLink size={16} />
             </a>
+            {project.figmaUrl && (
+              <a
+                href={project.figmaUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary"
+                style={{ flex: 1, minWidth: '140px', justifyContent: 'center', borderColor: '#ea4c89', color: '#ea4c89' }}
+              >
+                Figma Design <ExternalLink size={16} />
+              </a>
+            )}
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noreferrer"
               className="btn-secondary"
-              style={{ flex: 1, justifyContent: 'center' }}
+              style={{ flex: 1, minWidth: '140px', justifyContent: 'center' }}
             >
-              GitHub Source <GitBranch size={18} />
+              GitHub <GitBranch size={16} />
             </a>
           </div>
         </div>

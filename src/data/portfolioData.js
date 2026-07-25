@@ -51,8 +51,10 @@ export const projectsData = [
     category: "Full Stack",
     description: "Real-time interactive financial analytics dashboard featuring live currency exchange streams, customizable widgets, dark theme UI, and multi-tenant data visualization.",
     longDescription: "NovaDash is built with React 19, TypeScript, and Tailwind CSS on the frontend, powered by a Node.js Express websocket backend. It enables financial analysts to visualize real-time market metrics with sub-second latency.",
+    studentRole: "Lead Frontend Developer & UI Architect (Designed grid layout, websocket hooks, & Chart.js integration)",
     image: "/project_1.jpg",
-    tags: ["React", "TypeScript", "Node.js", "WebSockets", "Chart.js"],
+    figmaUrl: "https://figma.com",
+    tags: ["React", "TypeScript", "Node.js", "WebSockets", "Chart.js", "Figma"],
     liveUrl: "https://example.com/novadash",
     githubUrl: "https://github.com",
     featured: true,
@@ -69,7 +71,9 @@ export const projectsData = [
     category: "AI / Web Apps",
     description: "AI-assisted writing and code generation desktop-web app integrated with LLM APIs, syntax highlighting, and interactive agent history.",
     longDescription: "AuraAI streamlines developer productivity by providing an inline code explanation engine, prompt history manager, and markdown artifact exporter built with Vite + React and Node.js.",
+    studentRole: "Full Stack Developer (Engineered local AI prompt pipelines, Zustand state store & responsive UI)",
     image: "/project_2.jpg",
+    figmaUrl: "https://figma.com",
     tags: ["React", "AI APIs", "Vite", "Zustand", "Lucide Icons"],
     liveUrl: "https://example.com/auraai",
     githubUrl: "https://github.com",
@@ -87,7 +91,9 @@ export const projectsData = [
     category: "Frontend",
     description: "Modern headless e-commerce store front with interactive product filter drawer, instant cart state management, checkout simulation, and micro-animations.",
     longDescription: "Designed for high conversion rates, EcoStore delivers dynamic page transitions, responsive image optimization, and accessible shopping cart management.",
+    studentRole: "Frontend Developer (Crafted UI components, cart context manager & Stripe checkout modal)",
     image: "/project_1.jpg",
+    figmaUrl: "https://figma.com",
     tags: ["React", "CSS Modules", "Context API", "Stripe API"],
     liveUrl: "https://example.com/ecostore",
     githubUrl: "https://github.com",
@@ -101,32 +107,45 @@ export const projectsData = [
   }
 ];
 
-export const experienceData = [
+export const educationData = [
   {
-    role: "Senior Full-Stack Developer",
-    company: "Apex Tech Solutions",
+    school: "Bangkok University",
+    degree: "Computer Science & Software Development",
     period: "2023 - Present",
-    location: "San Francisco, CA",
-    description: "Leading frontend architecture for flagship web products, mentoring junior developers, and designing high-efficiency REST APIs.",
-    achievements: [
-      "Architected React 19 application migration reducing initial page load time by 42%",
-      "Established reusable component design system adopted across 5 product teams",
-      "Integrated CI/CD pipelines reducing feature deployment times from days to hours"
-    ],
-    technologies: ["React", "TypeScript", "Node.js", "Docker", "PostgreSQL"]
+    status: "Current Student"
   },
   {
-    role: "Frontend Developer",
-    company: "PixelCraft Studios",
-    period: "2021 - 2023",
-    location: "Remote",
-    description: "Developed interactive web applications, client portals, and landing pages with rich animations and responsive layouts.",
-    achievements: [
-      "Built over 15 client web projects delivered on time with 100% client satisfaction",
-      "Implemented accessibility (WCAG 2.1) standards across all company web applications",
-      "Pioneered mobile-first responsive layout strategies"
-    ],
-    technologies: ["JavaScript", "React", "CSS3/SASS", "Figma", "REST APIs"]
+    school: "Triamudom Suksa Pattanakarn Suvarnabhumi School",
+    degree: "High School Diploma",
+    period: "2016 - 2022",
+    status: "Graduated"
+  }
+];
+
+export const certificationsData = [
+  {
+    id: "cert-1",
+    title: "Local AI & LLM Architecture Specialist",
+    issuer: "Open Source AI Community",
+    date: "2024",
+    credentialId: "AI-LOCAL-2024-99",
+    description: "On-device model quantization (GGUF), vLLM inference optimization, and RAG pipelines."
+  },
+  {
+    id: "cert-2",
+    title: "Full-Stack React & Web Architecture",
+    issuer: "Tech Academy Workshop",
+    date: "2023",
+    credentialId: "REACT-FS-2023-402",
+    description: "Modern React 19 state management, component architecture, and responsive web design."
+  },
+  {
+    id: "cert-3",
+    title: "Python & Machine Learning Foundations",
+    issuer: "DeepLearning.AI / Coursera",
+    date: "2023",
+    credentialId: "DL-PY-88321",
+    description: "Supervised learning, neural networks, PyTorch fundamentals, and data analytics."
   }
 ];
 

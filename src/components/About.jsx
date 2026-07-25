@@ -1,9 +1,9 @@
 import React from 'react';
 import {
   MapPin, Mail, Phone, ExternalLink, Link, MessageCircle,
-  Cpu, Globe, Bot, Sparkles, ArrowRight, Star
+  Cpu, Globe, Bot, Sparkles, ArrowRight, Star, GraduationCap
 } from 'lucide-react';
-import { personalInfo, testimonialsData } from '../data/portfolioData';
+import { personalInfo, testimonialsData, educationData } from '../data/portfolioData';
 
 export default function About() {
   const highlights = [
@@ -118,6 +118,23 @@ export default function About() {
                   )}
                 </div>
               ))}
+            </div>
+
+            {/* Education Card */}
+            <div className="glass-card" style={{ padding: '1.25rem', width: '100%', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)' }}>
+                <GraduationCap size={18} color="#16a34a" />
+                <span>Education / การศึกษา</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {educationData && educationData.map((edu, idx) => (
+                  <div key={idx} style={{ paddingLeft: '0.75rem', borderLeft: '2px solid rgba(22, 163, 74, 0.3)' }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-primary)' }}>{edu.school}</div>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>{edu.degree}</div>
+                    <div style={{ fontSize: '0.72rem', color: '#16a34a', fontWeight: 600, marginTop: '2px' }}>{edu.period} • {edu.status}</div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Social links */}

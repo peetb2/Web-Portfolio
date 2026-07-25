@@ -36,12 +36,12 @@ export default function Navbar({ theme, toggleTheme, onReplayIntro }) {
   }, []);
 
   const navLinks = [
-    { name: 'Home',       href: '#hero' },
-    { name: 'About',      href: '#about' },
-    { name: 'Skills',     href: '#skills' },
-    { name: 'Projects',   href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact',    href: '#contact' },
+    { name: 'Home',           href: '#hero' },
+    { name: 'About',          href: '#about' },
+    { name: 'Skills',         href: '#skills' },
+    { name: 'Projects',       href: '#projects' },
+    { name: 'Certifications', href: '#certifications' },
+    { name: 'Contact',        href: '#contact' },
   ];
 
   return (

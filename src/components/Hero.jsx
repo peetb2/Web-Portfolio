@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, RefreshCw, Briefcase, UserCheck, Zap, Mail, FolderGit2 } from 'lucide-react';
-import { personalInfo, skillsData, projectsData, experienceData } from '../data/portfolioData';
+import { personalInfo, skillsData, projectsData, educationData, certificationsData } from '../data/portfolioData';
 import AuroraBackground from './reactbits/AuroraBackground';
 
 export default function Hero() {
@@ -8,7 +8,7 @@ export default function Hero() {
     {
       id: 1,
       sender: 'assistant',
-      text: `Hi there! 🐢 I'm TurterAI, Peet's personal AI assistant! Ask me anything about Rachata's work, experience in Local AI & React, technical skills, projects, or background!`
+      text: `Hi there! 🐢 I'm TurterAI, Peet's personal AI assistant! Ask me anything about Rachata's education, skills, projects, certifications, or background!`
     }
   ]);
   const [input, setInput] = useState('');
@@ -27,8 +27,8 @@ export default function Hero() {
 
   // Quick Action Pills Definition
   const quickPills = [
-    { label: 'Work', query: 'Tell me about Rachata\'s work experience and background.', icon: Briefcase },
     { label: 'About me', query: 'Who is Rachata Pimsupsiri? Give me a quick summary.', icon: UserCheck },
+    { label: 'Education', query: 'What is Rachata\'s educational background?', icon: Briefcase },
     { label: 'Skills', query: 'What technical skills and local AI frameworks does Rachata specialize in?', icon: Zap },
     { label: 'Projects', query: 'What featured projects has Rachata built?', icon: FolderGit2 },
     { label: 'Contact', query: 'How can I get in touch with Rachata Pimsupsiri?', icon: Mail }
@@ -43,7 +43,8 @@ export default function Hero() {
     ].join(', ');
 
     const projectsList = projectsData.map(p => `${p.title} (${p.category}): ${p.description}`).join('\n- ');
-    const experienceList = experienceData.map(e => `${e.role} at ${e.company} (${e.period}): ${e.description}`).join('\n- ');
+    const educationList = educationData.map(e => `${e.school} (${e.period}) - ${e.degree}`).join('\n- ');
+    const certsList = certificationsData.map(c => `${c.title} by ${c.issuer} (${c.date})`).join('\n- ');
 
     return `You are the official AI portfolio assistant for ${personalInfo.name} (${personalInfo.title}).
 You are TurterAI — Peet's personal AI assistant, speaking politely, concisely, enthusiastically, and accurately on behalf of Rachata Pimsupsiri.
@@ -56,10 +57,12 @@ Portfolio Details:
 - Email: ${personalInfo.email}
 - Phone: ${personalInfo.phone}
 - Key Skills: ${skillsList}
+- Education:
+- ${educationList}
+- Certifications:
+- ${certsList}
 - Featured Projects:
 - ${projectsList}
-- Work Experience:
-- ${experienceList}
 
 Instructions:
 - Keep answers concise, clear, and helpful (2-4 sentences unless bullet points are requested).
@@ -113,8 +116,8 @@ Instructions:
 
     // Smart Local Fallback Answer if API calls encounter rate limit or network issue
     const lowerPrompt = userPrompt.toLowerCase();
-    if (lowerPrompt.includes('work') || lowerPrompt.includes('experience')) {
-      return `${personalInfo.name} is a ${personalInfo.title} with experience as Senior Full-Stack Developer at Apex Tech Solutions and Frontend Developer at PixelCraft Studios. He specializes in React 19, Node.js, and Local AI architectures.`;
+    if (lowerPrompt.includes('education') || lowerPrompt.includes('school') || lowerPrompt.includes('university')) {
+      return `${personalInfo.name} is currently studying Computer Science & Software Development at Bangkok University (2023 - Present) and graduated from Triamudom Suksa Pattanakarn Suvarnabhumi School (2016 - 2022).`;
     } else if (lowerPrompt.includes('about') || lowerPrompt.includes('who')) {
       return `${personalInfo.name} is a Local AI Specialist & Full-Stack Architect based in ${personalInfo.location}. ${personalInfo.bio}`;
     } else if (lowerPrompt.includes('skill') || lowerPrompt.includes('tech')) {
@@ -671,6 +674,8 @@ Instructions:
               <a href="#skills" style={{ color: 'var(--accent-primary)', textDecoration: 'none', fontWeight: 600 }}>Skills</a>
               <span>•</span>
               <a href="#projects" style={{ color: 'var(--accent-primary)', textDecoration: 'none', fontWeight: 600 }}>Projects</a>
+              <span>•</span>
+              <a href="#certifications" style={{ color: 'var(--accent-primary)', textDecoration: 'none', fontWeight: 600 }}>Certifications</a>
               <span>•</span>
               <a href="#contact" style={{ color: 'var(--accent-primary)', textDecoration: 'none', fontWeight: 600 }}>Contact</a>
             </div>
