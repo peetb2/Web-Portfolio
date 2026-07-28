@@ -9,10 +9,10 @@ export default function About() {
   const [lang, setLang] = useState('EN');
 
   const highlights = [
-    { icon: Bot,     label: 'Local AI & LLMs',      desc: 'On-device model deployment, fine-tuning & RAG pipelines' },
-    { icon: Globe,   label: 'Full-Stack Web',        desc: 'React 19, Next.js, Node.js, FastAPI & modern UI craft' },
-    { icon: Cpu,     label: 'GPU Acceleration',      desc: 'CUDA 12, PyTorch, GGUF quantization, vLLM inference' },
-    { icon: Sparkles,label: 'AI Product Builder',    desc: 'End-to-end AI apps from architecture to polished UX' },
+    { icon: Bot,     label: 'Local AI & LLMs',      desc: 'Ollama, vLLM, Llama 3 & DeepSeek via Docker Desktop' },
+    { icon: Cpu,     label: 'Serverless Cloud AI',   desc: 'AWS Lambda, Amazon S3, API Gateway & Amplify' },
+    { icon: Globe,   label: 'Full-Stack Web',        desc: 'React 19, Vite, Node.js, Supabase & REST APIs' },
+    { icon: Sparkles,label: 'End-to-End Builder',    desc: 'License key token sharing & AI resume parsers' },
   ];
 
   const bioTexts = {
