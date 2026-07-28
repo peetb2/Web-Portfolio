@@ -24,9 +24,9 @@ export const personalInfo = {
 export const skillsData = {
   languages: [
     { name: "Python", desc: "AWS Lambda, Boto3, FastAPI & Regex parsing", badge: "Advanced", icon: "Terminal" },
-    { name: "JavaScript", desc: "ES6+, React 19, Node.js & modern Web APIs", badge: "Advanced", icon: "FileCode" },
+    { name: "JavaScript & TypeScript", desc: "Type-safe React 19, ES6+, Node.js & Web APIs", badge: "Advanced", icon: "FileCode" },
     { name: "SQL", desc: "Supabase & PostgreSQL relational queries", badge: "Proficient", icon: "Database" },
-    { name: "HTML5 & CSS3", desc: "Responsive layouts & UI animations", badge: "Advanced", icon: "Code2" }
+    { name: "HTML5 & CSS3", desc: "Responsive layouts & custom animations", badge: "Advanced", icon: "Code2" }
   ],
   localAI: [
     { name: "Docker & Ollama", desc: "Docker Desktop containerized LLM pipelines on GPU", badge: "Production", icon: "Box" },
@@ -38,7 +38,8 @@ export const skillsData = {
     { name: "Amazon S3 & Amplify", desc: "Cloud object bucket storage & frontend hosting", badge: "Intermediate", icon: "Globe" }
   ],
   frontend: [
-    { name: "React 19", desc: "Client state architecture, hooks & React Router", badge: "Advanced", icon: "Code2" },
+    { name: "React 19 & Next.js", desc: "Client state architecture, Next.js SSR & React Router", badge: "Advanced", icon: "Code2" },
+    { name: "Tailwind CSS", desc: "Utility-first modern styling & responsive design", badge: "Advanced", icon: "Palette" },
     { name: "Material-UI", desc: "MUI component styling & dropzone file handling", badge: "Proficient", icon: "Palette" }
   ],
   backend: [
@@ -65,7 +66,7 @@ export const projectsData = [
       { src: "/adminapi.png",    label: "API Key Management" },
       { src: "/admin.png",       label: "Admin Panel" },
     ],
-    tags: ["Docker Desktop", "Supabase", "PostgreSQL", "React", "Node.js", "Ollama", "vLLM", "FastAPI", "API Keys", "LLM"],
+    tags: ["Docker Desktop", "Supabase", "PostgreSQL", "React 19", "TypeScript", "Tailwind CSS", "Next.js", "Node.js", "Ollama", "vLLM", "FastAPI", "API Keys"],
     liveUrl: "https://github.com/peetb2/AI-Hub",
     githubUrl: "https://github.com/peetb2/AI-Hub",
     featured: true,

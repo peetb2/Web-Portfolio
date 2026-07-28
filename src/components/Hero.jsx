@@ -123,7 +123,7 @@ Instructions:
     } else if (lowerPrompt.includes('about') || lowerPrompt.includes('who')) {
       return `${personalInfo.name} is a Local AI Specialist & Full-Stack Architect based in ${personalInfo.location}. ${personalInfo.bio}`;
     } else if (lowerPrompt.includes('skill') || lowerPrompt.includes('tech')) {
-      return `${personalInfo.name} specializes in Local LLMs (Ollama, vLLM), Docker Desktop, AWS Serverless (Lambda, S3, API Gateway), React 19, Node.js, and Supabase.`;
+      return `${personalInfo.name} specializes in Local LLMs (Ollama, vLLM), Docker Desktop, AWS Serverless (Lambda, S3, API Gateway), TypeScript, Next.js, Tailwind CSS, React 19, Node.js, and Supabase.`;
     } else if (lowerPrompt.includes('project')) {
       return `Rachata's featured projects are AI Hub (self-hosted local LLM platform with Docker Desktop, Ollama, vLLM, and multi-PC key sharing) and AI Resume Screener (cloud-native AWS Lambda, S3, and API Gateway resume parser).`;
     } else if (lowerPrompt.includes('contact') || lowerPrompt.includes('email') || lowerPrompt.includes('reach')) {
