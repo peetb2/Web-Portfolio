@@ -1,5 +1,6 @@
 export const personalInfo = {
   name: "Rachata Pimsupsiri",
+  nameThai: "รชฏะ พิมพ์ทรัพย์ศิริ",
   brandName: "RachataAI",
   title: "Local AI Engineer & Full-Stack Architect",
   location: "Open to Remote & Global Collaborations",

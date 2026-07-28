@@ -85,10 +85,15 @@ export default function About() {
 
             {/* Name + title */}
             <div style={{ textAlign: 'center' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
                 {personalInfo.name}
               </h3>
-              <p style={{ fontSize: '0.95rem', color: 'var(--accent-primary)', fontWeight: 600 }}>
+              {personalInfo.nameThai && (
+                <div style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.4rem' }}>
+                  ({personalInfo.nameThai})
+                </div>
+              )}
+              <p style={{ fontSize: '0.95rem', color: 'var(--accent-primary)', fontWeight: 600, margin: 0 }}>
                 {personalInfo.title}
               </p>
             </div>
