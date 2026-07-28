@@ -66,8 +66,8 @@ Portfolio Details:
 
 Instructions:
 - Keep answers concise, clear, and helpful (2-4 sentences unless bullet points are requested).
-- If asked about projects, highlight NovaDash or AuraAI.
-- If asked about skills, highlight Local LLMs (Ollama, vLLM), PyTorch, React 19, and Full-Stack development.
+- If asked about projects, highlight AI Hub (self-hosted local LLM platform) and AI Resume Screener (AWS Lambda serverless parser).
+- If asked about skills, highlight Local LLMs (Ollama, vLLM), Docker Desktop, AWS Serverless (Lambda, S3, API Gateway), React 19, and Full-Stack development.
 - Always maintain high contrast clarity and friendly tone.`;
   };
 
@@ -121,9 +121,9 @@ Instructions:
     } else if (lowerPrompt.includes('about') || lowerPrompt.includes('who')) {
       return `${personalInfo.name} is a Local AI Specialist & Full-Stack Architect based in ${personalInfo.location}. ${personalInfo.bio}`;
     } else if (lowerPrompt.includes('skill') || lowerPrompt.includes('tech')) {
-      return `${personalInfo.name} specializes in Local LLMs (Ollama, vLLM, llama.cpp), PyTorch, Quantization (GGUF), React 19, TypeScript, Node.js, and Docker.`;
+      return `${personalInfo.name} specializes in Local LLMs (Ollama, vLLM), Docker Desktop, AWS Serverless (Lambda, S3, API Gateway), React 19, Node.js, and Supabase.`;
     } else if (lowerPrompt.includes('project')) {
-      return `Rachata's top projects include NovaDash (a real-time financial analytics platform) and AuraAI (an intelligent workspace & code copilot desktop web app).`;
+      return `Rachata's featured projects are AI Hub (self-hosted local LLM platform with Docker Desktop, Ollama, vLLM, and multi-PC key sharing) and AI Resume Screener (cloud-native AWS Lambda, S3, and API Gateway resume parser).`;
     } else if (lowerPrompt.includes('contact') || lowerPrompt.includes('email') || lowerPrompt.includes('reach')) {
       return `You can reach Rachata Pimsupsiri via email at ${personalInfo.email} or by phone at ${personalInfo.phone}.`;
     }
