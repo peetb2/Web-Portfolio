@@ -8,7 +8,7 @@ export default function Hero() {
     {
       id: 1,
       sender: 'assistant',
-      text: `Hi there! 🐢 I'm TurterAI, Peet's personal AI assistant! Ask me anything about Rachata's education, skills, projects, certifications, or background!`
+      text: `Hi there! I'm TurterAI, Peet's personal AI assistant! Ask me anything about Rachata's education, skills, projects, certifications, or background!`
     }
   ]);
   const [input, setInput] = useState('');
@@ -169,7 +169,7 @@ Instructions:
       {
         id: 1,
         sender: 'assistant',
-        text: `Hi there! 🐢 I'm TurterAI, Peet's personal AI assistant! Ask me anything about Rachata's work, experience in Local AI & React, technical skills, projects, or background!`
+        text: `Hi there! I'm TurterAI, Peet's personal AI assistant! Ask me anything about Rachata's work, experience in Local AI & React, technical skills, projects, or background!`
       }
     ]);
   };
@@ -309,11 +309,12 @@ Instructions:
                 <div
                   style={{
                     position: 'relative',
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '8px',
-                    background: '#dcfce7',
-                    border: '1px solid rgba(22, 163, 74, 0.3)',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    background: '#ffffff',
+                    border: '2px solid rgba(22, 163, 74, 0.4)',
+                    boxShadow: '0 2px 8px rgba(22, 163, 74, 0.18)',
                     flexShrink: 0,
                     overflow: 'hidden',
                   }}
@@ -437,17 +438,26 @@ Instructions:
                         width: '32px',
                         height: '32px',
                         borderRadius: '50%',
-                        background: msg.sender === 'user' ? '#16a34a' : 'rgba(22, 163, 74, 0.12)',
+                        background: msg.sender === 'user' ? '#16a34a' : '#ffffff',
                         color: msg.sender === 'user' ? '#ffffff' : '#16a34a',
+                        border: msg.sender === 'user' ? 'none' : '2px solid rgba(22, 163, 74, 0.35)',
+                        boxShadow: '0 2px 6px rgba(22, 163, 74, 0.12)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexShrink: 0,
-                        fontSize: '0.85rem',
-                        fontWeight: 700,
+                        overflow: 'hidden',
                       }}
                     >
-                      {msg.sender === 'user' ? <User size={16} /> : <Bot size={18} />}
+                      {msg.sender === 'user' ? (
+                        <User size={16} />
+                      ) : (
+                        <img
+                          src="/turtle_idle.png"
+                          alt="TurterAI"
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      )}
                     </div>
 
                     {/* Message Bubble */}

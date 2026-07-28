@@ -46,20 +46,26 @@ export default function Skills() {
 
   const categories = [
     { id: 'all', label: 'All Tech' },
-    { id: 'localAI', label: '🤖 Local AI & LLMs' },
+    { id: 'languages', label: 'Languages' },
+    { id: 'localAI', label: 'Local AI & LLMs' },
+    { id: 'cloud', label: 'AWS & Cloud' },
     { id: 'frontend', label: 'Frontend' },
     { id: 'backend', label: 'Backend & DB' },
   ];
 
   const getFilteredSkills = () => {
+    const langs = skillsData.languages || [];
     const local = skillsData.localAI || [];
+    const cloud = skillsData.cloud || [];
     const fe = skillsData.frontend || [];
     const be = skillsData.backend || [];
 
+    if (activeCategory === 'languages') return langs;
     if (activeCategory === 'localAI') return local;
+    if (activeCategory === 'cloud') return cloud;
     if (activeCategory === 'frontend') return fe;
     if (activeCategory === 'backend') return be;
-    return [...local, ...fe, ...be];
+    return [...langs, ...local, ...cloud, ...fe, ...be];
   };
 
   return (
@@ -118,68 +124,106 @@ export default function Skills() {
             return (
               <SpotlightCard
                 key={idx}
-                spotlightColor="rgba(99, 102, 241, 0.2)"
+                spotlightColor="rgba(22, 163, 74, 0.25)"
                 style={{
                   padding: '1.5rem',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '1rem',
+                  gap: '0.85rem',
+                  height: '100%',
+                  minHeight: '180px',
+                  background: 'var(--bg-card)',
                 }}
               >
-                {/* Header Row */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <div
-                      style={{
-                        width: '42px',
-                        height: '42px',
-                        borderRadius: 'var(--radius-md)',
-                        background: 'rgba(99, 102, 241, 0.12)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'var(--accent-primary)',
-                      }}
-                    >
-                      <IconComponent size={22} />
-                    </div>
-                    <span style={{ fontWeight: 600, fontSize: '1rem', color: 'var(--text-primary)' }}>
-                      {skill.name}
-                    </span>
-                  </div>
-                  <span
+                {/* Top Row: Icon on far left, Badge on far right */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom: '12px', background: 'transparent' }}>
+                  <div
                     style={{
-                      fontSize: '0.85rem',
-                      fontWeight: 700,
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: 'var(--radius-md)',
+                      background: 'rgba(22, 163, 74, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       color: 'var(--accent-primary)',
-                      fontFamily: 'var(--font-heading)',
+                      flexShrink: 0,
                     }}
                   >
-                    {skill.level}%
+                    <IconComponent size={22} />
+                  </div>
+
+                  <span
+                    style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.04em',
+                      padding: '0.25rem 0.7rem',
+                      borderRadius: '999px',
+                      whiteSpace: 'nowrap',
+                      background:
+                        skill.badge === 'Production'
+                          ? '#16a34a'
+                          : skill.badge === 'Intermediate'
+                          ? 'rgba(16, 185, 129, 0.1)'
+                          : 'rgba(22, 163, 74, 0.1)',
+                      color:
+                        skill.badge === 'Production'
+                          ? '#ffffff'
+                          : skill.badge === 'Intermediate'
+                          ? '#0d9488'
+                          : '#16a34a',
+                      border:
+                        skill.badge === 'Production'
+                          ? 'none'
+                          : skill.badge === 'Intermediate'
+                          ? '1px solid rgba(16, 185, 129, 0.3)'
+                          : '1px solid rgba(22, 163, 74, 0.25)',
+                    }}
+                  >
+                    {skill.badge}
                   </span>
                 </div>
 
-                {/* Progress Bar */}
+                {/* Title & Subtitle Content Block with 8px flex gap */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', background: 'transparent' }}>
+                  <h3
+                    style={{
+                      fontWeight: 700,
+                      fontSize: '1.05rem',
+                      color: 'var(--text-primary)',
+                      lineHeight: 1.35,
+                      margin: 0,
+                    }}
+                  >
+                    {skill.name}
+                  </h3>
+
+                  {skill.desc && (
+                    <p
+                      style={{
+                        fontSize: '0.84rem',
+                        color: 'var(--text-secondary)',
+                        lineHeight: 1.55,
+                        margin: 0,
+                      }}
+                    >
+                      {skill.desc}
+                    </p>
+                  )}
+                </div>
+
+                {/* Pinned Bottom Accent Bar */}
                 <div
                   style={{
                     width: '100%',
-                    height: '8px',
+                    height: '3px',
                     borderRadius: 'var(--radius-full)',
-                    background: 'var(--border-color)',
-                    overflow: 'hidden',
-                    position: 'relative',
+                    background: 'linear-gradient(90deg, #16a34a 0%, #22c55e 100%)',
+                    marginTop: '16px',
+                    opacity: 0.85,
                   }}
-                >
-                  <div
-                    style={{
-                      width: `${skill.level}%`,
-                      height: '100%',
-                      background: 'var(--gradient-brand)',
-                      borderRadius: 'var(--radius-full)',
-                      transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)',
-                    }}
-                  />
-                </div>
+                />
               </SpotlightCard>
             );
           })}

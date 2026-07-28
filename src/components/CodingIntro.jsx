@@ -190,14 +190,25 @@ export default function CodingIntro({ onComplete }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div
               style={{
-                width: '40px', height: '40px', borderRadius: '12px',
-                background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 0 15px rgba(22, 163, 74, 0.4)',
+                position: 'relative',
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                background: '#ffffff',
+                border: '2px solid rgba(22, 163, 74, 0.4)',
+                boxShadow: '0 2px 8px rgba(22, 163, 74, 0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                overflow: 'hidden',
               }}
             >
-              {/* small turtle icon in brand */}
-              <img src="/turtle_idle.png" alt="" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+              <img
+                src="/turtle_idle.png"
+                alt="TurterAI"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
             </div>
             <div>
               <div style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', color: '#0d1f12' }}>

@@ -4,7 +4,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import ProjectModal from './components/ProjectModal';
+
 import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -12,7 +12,7 @@ import CodingIntro from './components/CodingIntro';
 
 export default function App() {
   const [theme, setTheme] = useState('light');
-  const [selectedProject, setSelectedProject] = useState(null);
+
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
@@ -45,17 +45,13 @@ export default function App() {
         <Hero />
         <About />
         <Skills />
-        <Projects onSelectProject={(project) => setSelectedProject(project)} />
+        <Projects />
         <Certifications />
         <Contact />
         <Footer />
       </main>
 
-      {/* Project Details Modal */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+
     </div>
   );
 }

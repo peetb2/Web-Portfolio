@@ -49,10 +49,10 @@ export default function SpotlightCard({
           opacity: opacity,
           transition: 'opacity 0.3s ease',
           background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 40%)`,
-          zIndex: 1,
+          zIndex: 3,
         }}
       />
-      <div style={{ position: 'relative', zIndex: 2 }}>{children}</div>
+      <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', flex: 1, height: '100%', background: 'transparent' }}>{children}</div>
     </div>
   );
 }

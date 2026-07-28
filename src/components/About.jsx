@@ -137,6 +137,22 @@ export default function About() {
               </div>
             </div>
 
+            {/* Languages Card */}
+            <div className="glass-card" style={{ padding: '1.25rem', width: '100%', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)' }}>
+                <Globe size={18} color="#16a34a" />
+                <span>Languages / ภาษา</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                {personalInfo.languages && personalInfo.languages.map((lang, idx) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '0.75rem', borderLeft: '2px solid rgba(22, 163, 74, 0.3)' }}>
+                    <span style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-primary)' }}>{lang.name}</span>
+                    <span style={{ fontSize: '0.78rem', color: '#16a34a', fontWeight: 700, background: 'rgba(22,163,74,0.08)', padding: '2px 9px', borderRadius: '999px', border: '1px solid rgba(22,163,74,0.2)' }}>{lang.proficiency}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Social links */}
             <div style={{ display: 'flex', gap: '0.75rem' }}>
               {socials.map(({ icon: Icon, href, label }) => (
@@ -198,15 +214,13 @@ export default function About() {
               </div>
 
               <h3 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '0.85rem', color: 'var(--text-primary)' }}>
-                Building the Future, One Model at a Time
+                Engineering Local AI Infrastructure & Serverless Systems
               </h3>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.97rem' }}>
                 {personalInfo.bio}
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.97rem', marginTop: '1rem' }}>
-                My passion is bridging the gap between cutting-edge AI research and production-ready
-                web products — from RAG pipelines with sub-50ms retrieval to polished React UIs that
-                feel instant. Ask my AI assistant on this page anything about my work!
+                Driven by real-world AI projects like <strong>AI Hub</strong> (Docker Desktop containerized GPU LLMs & license key token sharing) and <strong>AI Resume Screener</strong> (AWS Lambda, S3, API Gateway), my mission is creating scalable, high-performance AI tools for modern developers and teams. Ask my AI assistant on this page anything about my work!
               </p>
             </div>
 
