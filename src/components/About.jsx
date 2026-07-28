@@ -251,7 +251,7 @@ export default function About() {
                       boxShadow: lang === 'EN' ? '0 2px 8px rgba(22, 163, 74, 0.25)' : 'none',
                     }}
                   >
-                    🇬🇧 EN
+                    EN
                   </button>
                   <button
                     onClick={() => setLang('TH')}
@@ -268,7 +268,7 @@ export default function About() {
                       boxShadow: lang === 'TH' ? '0 2px 8px rgba(22, 163, 74, 0.25)' : 'none',
                     }}
                   >
-                    🇹🇭 TH
+                    TH
                   </button>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, GitBranch, ChevronLeft, ChevronRight, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, GitBranch, ChevronLeft, ChevronRight, ArrowUpRight, CheckCircle2, Layers, Cpu, Sparkles, X } from 'lucide-react';
 import { projectsData } from '../data/portfolioData';
 
 /* ─── Browser-chrome device frame with auto-advancing screenshot carousel ─── */
@@ -204,15 +204,279 @@ function DeviceFrame({ screenshots, fallback, title }) {
   );
 }
 
+/* ─── Architecture Deep Dive / What I Did Modal ─── */
+function ArchitectureModal({ project, onClose }) {
+  const [lang, setLang] = useState('en');
+
+  if (!project) return null;
+
+  const isTH = lang === 'th';
+  const info = project.whatIDid;
+
+  const roleText = info
+    ? (isTH ? info.roleThai : info.role)
+    : (isTH && project.studentRoleThai ? project.studentRoleThai : project.studentRole);
+
+  const goalText = info ? (isTH ? info.goalThai : info.goal) : null;
+  const builtText = info ? (isTH ? info.whatIBuiltThai : info.whatIBuilt) : null;
+  const resultText = info ? (isTH ? info.resultThai : info.result) : null;
+
+  const overviewText = isTH && project.architectureDetails?.overviewThai
+    ? project.architectureDetails.overviewThai
+    : (project.longDescription || project.description);
+
+  const achievements = isTH
+    ? (project.architectureDetails?.keyContributionsThai || project.highlightsThai || project.highlights)
+    : (project.architectureDetails?.keyContributions || project.highlights || []);
+
+  return (
+    <div
+      style={{
+        position: 'fixed', inset: 0, zIndex: 9999,
+        background: 'rgba(0, 0, 0, 0.75)',
+        backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '1.5rem',
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          width: '100%', maxWidth: '750px', maxHeight: '88vh',
+          overflowY: 'auto', padding: '2rem',
+          borderRadius: '16px',
+          border: '1px solid rgba(22, 163, 74, 0.3)',
+          position: 'relative',
+          background: 'var(--bg-secondary)',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(22, 163, 74, 0.15)',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Top Controls: Language Switcher & Close Button */}
+        <div style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', zIndex: 10 }}>
+          {/* Language Switcher Toggle */}
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '4px',
+            background: 'var(--bg-primary)', padding: '3px 4px',
+            borderRadius: '999px', border: '1px solid rgba(22, 163, 74, 0.3)',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          }}>
+            <button
+              onClick={() => setLang('en')}
+              style={{
+                padding: '0.25rem 0.65rem', borderRadius: '999px', border: 'none',
+                background: lang === 'en' ? '#16a34a' : 'transparent',
+                color: lang === 'en' ? '#ffffff' : 'var(--text-secondary)',
+                fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLang('th')}
+              style={{
+                padding: '0.25rem 0.65rem', borderRadius: '999px', border: 'none',
+                background: lang === 'th' ? '#16a34a' : 'transparent',
+                color: lang === 'th' ? '#ffffff' : 'var(--text-secondary)',
+                fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              TH
+            </button>
+          </div>
+
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            style={{
+              width: '36px', height: '36px', borderRadius: '50%',
+              background: 'rgba(22, 163, 74, 0.1)',
+              border: '1px solid rgba(22, 163, 74, 0.3)',
+              color: 'var(--text-primary)', display: 'flex', alignItems: 'center',
+              justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(22, 163, 74, 0.25)')}
+            onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(22, 163, 74, 0.1)')}
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem', paddingRight: '120px' }}>
+          <div style={{
+            padding: '0.6rem', borderRadius: '12px',
+            background: 'rgba(22, 163, 74, 0.15)', color: '#16a34a',
+            display: 'flex', alignItems: 'center', justifyContent: 'center'
+          }}>
+            <Cpu size={26} />
+          </div>
+          <div>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16a34a', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+              {isTH ? 'สิ่งที่ฉันทำ / สิ่งที่พัฒนารับผิดชอบ' : 'What I Did / Core Contributions'}
+            </span>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
+              {isTH ? `สิ่งที่ฉันทำใน ${project.title.split('–')[0].trim()}` : `What I Did in ${project.title.split('–')[0].trim()}`}
+            </h3>
+          </div>
+        </div>
+
+        {/* My Role Banner */}
+        {roleText && (
+          <div style={{
+            marginBottom: '1.25rem', padding: '0.85rem 1.1rem', borderRadius: '12px',
+            background: 'rgba(22, 163, 74, 0.08)', border: '1px solid rgba(22, 163, 74, 0.25)',
+            display: 'flex', alignItems: 'center', gap: '0.75rem'
+          }}>
+            <Sparkles size={20} color="#16a34a" style={{ flexShrink: 0 }} />
+            <div>
+              <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                {isTH ? 'บทบาทหลัก (My Role)' : 'My Role'}
+              </span>
+              <div style={{ color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 700, marginTop: '2px' }}>
+                {roleText}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* The Goal */}
+        {goalText && (
+          <div style={{
+            marginBottom: '1.25rem', padding: '1rem 1.15rem', borderRadius: '12px',
+            background: 'var(--bg-primary)', border: '1px solid var(--border-color)',
+          }}>
+            <h4 style={{ fontSize: '0.875rem', fontWeight: 800, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.04em', margin: '0 0 0.4rem 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              {isTH ? 'เป้าหมายของโปรเจกต์ (The Goal)' : 'The Goal'}
+            </h4>
+            <p style={{ color: 'var(--text-primary)', fontSize: '0.9rem', lineHeight: 1.6, margin: 0, fontWeight: 500 }}>
+              {goalText}
+            </p>
+          </div>
+        )}
+
+        {/* What I Built Overview */}
+        {builtText && (
+          <div style={{ marginBottom: '1.5rem' }}>
+            <h4 style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
+              {isTH ? 'สิ่งที่ฉันสร้างและวางสถาปัตยกรรม (What I Built)' : 'What I Built'}
+            </h4>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.65, margin: 0 }}>
+              {builtText}
+            </p>
+          </div>
+        )}
+
+        {/* Detailed Technical Work Items */}
+        {info && info.items && info.items.length > 0 ? (
+          <div style={{ marginBottom: '1.5rem' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.85rem' }}>
+              {isTH ? 'การดำเนินงานทางวิศวกรรมเชิงลึก (Key Technical Work)' : 'Key Technical Engineering Work'}
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              {info.items.map((item, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: '1rem 1.15rem', borderRadius: '12px',
+                    background: 'var(--bg-primary)', border: '1px solid var(--border-color)',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+                  }}
+                >
+                  <div style={{ fontSize: '0.925rem', fontWeight: 700, color: '#16a34a', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <CheckCircle2 size={16} color="#16a34a" />
+                    {isTH && item.titleThai ? item.titleThai : item.title}
+                  </div>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: 1.65, margin: 0 }}>
+                    {isTH && item.descThai ? item.descThai : item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* Fallback Key Contributions for projects without detailed whatIDid */
+          <div style={{ marginBottom: '1.5rem' }}>
+            <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.75rem' }}>
+              {isTH ? 'ผลงานและความสำเร็จทางเทคนิค (Technical Achievements)' : 'Key Technical Achievements'}
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {achievements.map((item, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: 'flex', gap: '0.75rem', padding: '0.85rem 1rem',
+                    borderRadius: '10px', background: 'var(--bg-primary)',
+                    border: '1px solid var(--border-color)', alignItems: 'flex-start'
+                  }}
+                >
+                  <CheckCircle2 size={18} color="#16a34a" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span style={{ color: 'var(--text-primary)', fontSize: '0.875rem', lineHeight: 1.5, fontWeight: 500 }}>
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* The Result */}
+        {resultText && (
+          <div style={{
+            marginBottom: '1.5rem', padding: '1rem 1.15rem', borderRadius: '12px',
+            background: 'rgba(22, 163, 74, 0.1)', border: '1px solid rgba(22, 163, 74, 0.3)',
+          }}>
+            <h4 style={{ fontSize: '0.875rem', fontWeight: 800, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.04em', margin: '0 0 0.35rem 0' }}>
+              {isTH ? 'ผลลัพธ์ของระบบ (The Result)' : 'The Result'}
+            </h4>
+            <p style={{ color: 'var(--text-primary)', fontSize: '0.9rem', lineHeight: 1.6, margin: 0, fontWeight: 600 }}>
+              {resultText}
+            </p>
+          </div>
+        )}
+
+        {/* Tech Stack Grid */}
+        <div>
+          <h4 style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>
+            {isTH ? 'เทคโนโลยีและเครื่องมือที่ใช้ (Technologies & Tools)' : 'Technologies & Tools'}
+          </h4>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+            {project.tags.map((tag, idx) => (
+              <span
+                key={idx}
+                style={{
+                  padding: '0.35rem 0.75rem', borderRadius: '8px',
+                  background: 'rgba(22, 163, 74, 0.1)',
+                  border: '1px solid rgba(22, 163, 74, 0.3)',
+                  color: '#16a34a', fontSize: '0.8rem', fontWeight: 600,
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── Main Projects Section ─────────────────────────────────────────────── */
 export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showArchModal, setShowArchModal] = useState(false);
   const project = projectsData[activeIndex];
 
-  const goPrev = () =>
+  const goPrev = () => {
+    setShowArchModal(false);
     setActiveIndex((i) => (i - 1 + projectsData.length) % projectsData.length);
-  const goNext = () =>
+  };
+  const goNext = () => {
+    setShowArchModal(false);
     setActiveIndex((i) => (i + 1) % projectsData.length);
+  };
 
   return (
     <section
@@ -290,7 +554,7 @@ export default function Projects() {
             gridTemplateColumns: '1fr 420px',
             gap: '2.5rem',
             alignItems: 'stretch',
-            minHeight: '620px',
+            minHeight: '700px',
           }}
         >
           {/* LEFT – Device frame */}
@@ -352,8 +616,8 @@ export default function Projects() {
               ))}
             </div>
 
-            {/* Tech stack badges with primary/secondary visual hierarchy */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginTop: '1.25rem' }}>
+            {/* Tech stack badges with primary/secondary visual hierarchy — mt-8 (2rem) for breathing room */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginTop: '2rem' }}>
               {project.tags.map((tag, idx) => {
                 const isPrimary = idx < 4;
                 return (
@@ -377,29 +641,72 @@ export default function Projects() {
               })}
             </div>
 
-            {/* CTA buttons pinned to bottom via mt-auto */}
-            <div style={{ display: 'flex', gap: '0.75rem', paddingTop: '0.5rem', flexWrap: 'wrap', marginTop: 'auto' }}>
+            {/* CTA buttons pinned to bottom via mt-auto sitting strictly side-by-side */}
+            <div
+              className="proj-btn-row flex flex-row items-center gap-4"
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: '1rem',
+                paddingTop: '0.5rem',
+                marginTop: 'auto',
+                flexWrap: 'nowrap',
+              }}
+            >
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
                 style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  padding: '0.75rem 1.6rem', borderRadius: '10px',
+                  display: 'inline-flex', alignItems: 'center', gap: '6px',
+                  padding: '0.75rem 1.25rem', borderRadius: '10px',
                   background: 'var(--gradient-brand)',
                   border: 'none', color: '#ffffff',
-                  fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none',
+                  fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none',
                   boxShadow: '0 4px 14px rgba(22, 163, 74, 0.25)',
-                  transition: 'opacity 0.2s ease',
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
               >
-                <GitBranch size={18} /> View GitHub Source Code <ArrowUpRight size={15} />
+                <GitBranch size={16} /> View GitHub Source Code <ArrowUpRight size={14} />
               </a>
+
+              <button
+                onClick={() => setShowArchModal(true)}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '6px',
+                  padding: '0.75rem 1.25rem', borderRadius: '10px',
+                  background: 'transparent',
+                  border: '1.5px solid #16a34a', color: '#16a34a',
+                  fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                  transition: 'all 0.25s ease',
+                  whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(22, 163, 74, 0.1)';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <Sparkles size={16} /> What I Did
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Architecture Deep Dive Modal */}
+        {showArchModal && (
+          <ArchitectureModal
+            project={project}
+            onClose={() => setShowArchModal(false)}
+          />
+        )}
 
         {/* Project navigator — project selector pills */}
         {projectsData.length > 1 && (
