@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, GitBranch, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, GitBranch, ChevronLeft, ChevronRight, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { projectsData } from '../data/portfolioData';
 
 /* ─── Browser-chrome device frame with auto-advancing screenshot carousel ─── */
@@ -42,7 +42,7 @@ function DeviceFrame({ screenshots, fallback, title }) {
         borderRadius: '16px',
         overflow: 'hidden',
         boxShadow:
-          '0 24px 60px rgba(22, 163, 74, 0.12), 0 0 0 1px var(--border-color)',
+          '0 25px 65px -12px rgba(22, 163, 74, 0.22), 0 12px 35px -10px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--border-color)',
         background: 'var(--bg-card)',
         border: '1px solid var(--border-color)',
         position: 'relative',
@@ -224,7 +224,7 @@ export default function Projects() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '6rem 2rem',
+        padding: '4.5rem 1.5rem',
         position: 'relative',
         overflow: 'hidden',
         transition: 'background-color 0.3s ease',
@@ -241,12 +241,12 @@ export default function Projects() {
         .proj-animate { animation: proj-fade-up 0.55s ease both; }
 
         @media (max-width: 900px) {
-          .proj-layout { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .proj-layout { grid-template-columns: 1fr !important; gap: 2rem !important; min-height: auto !important; }
           .proj-info-col { padding-left: 0 !important; }
         }
         @media (max-width: 640px) {
           .device-screen-box { height: 230px !important; }
-          #projects { padding: 4rem 1rem !important; }
+          #projects { padding: 3.5rem 1rem !important; }
         }
       `}</style>
 
@@ -269,31 +269,32 @@ export default function Projects() {
         style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: '1200px' }}
       >
         {/* Section heading */}
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <h2 style={{
-            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            fontSize: 'clamp(2rem, 4vw, 2.75rem)',
             fontWeight: 800, color: 'var(--text-primary)', margin: 0,
           }}>
             Projects Showcase
           </h2>
-          <p style={{ color: 'var(--text-secondary)', marginTop: '0.6rem', fontSize: '1rem' }}>
-            Full-stack projects, local AI platforms, and digital experiences.
+          <p style={{ color: 'var(--text-secondary)', marginTop: '0.4rem', fontSize: '0.95rem' }}>
+            Full-stack projects, local AI platforms, and cloud tools.
           </p>
         </div>
 
-        {/* Two-column showcase */}
+        {/* Two-column showcase - Strict parent minHeight stops navigation jump */}
         <div
           key={project.id}
           className="proj-layout proj-animate"
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 400px',
-            gap: '4rem',
-            alignItems: 'center',
+            gridTemplateColumns: '1fr 420px',
+            gap: '2.5rem',
+            alignItems: 'stretch',
+            minHeight: '620px',
           }}
         >
           {/* LEFT – Device frame */}
-          <div className="device-frame-wrap">
+          <div className="device-frame-wrap" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <DeviceFrame
               screenshots={project.screenshots}
               fallback={project.image}
@@ -305,8 +306,11 @@ export default function Projects() {
           <div
             className="proj-info-col"
             style={{
-              display: 'flex', flexDirection: 'column', gap: '1.5rem',
-              paddingLeft: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              height: '100%',
+              paddingLeft: '0.5rem',
             }}
           >
             {/* Title row */}
@@ -315,10 +319,11 @@ export default function Projects() {
                 display: 'flex', alignItems: 'center',
                 gap: '0.75rem', marginBottom: '0.75rem', flexWrap: 'wrap',
               }}>
-                {/* accent bar */}
+                {/* Thicker, softer green title accent bar */}
                 <div style={{
-                  width: '4px', height: '28px', borderRadius: '3px', flexShrink: 0,
-                  background: 'var(--gradient-brand)',
+                  width: '6px', height: '30px', borderRadius: '999px', flexShrink: 0,
+                  background: 'linear-gradient(180deg, #22c55e 0%, #16a34a 100%)',
+                  boxShadow: '0 0 10px rgba(34, 197, 94, 0.4)',
                 }} />
                 <h3 style={{
                   fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
@@ -335,43 +340,45 @@ export default function Projects() {
               </p>
             </div>
 
-            {/* Highlights */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            {/* Highlights with crisp green checkmark icons */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
               {(project.highlights || []).slice(0, 4).map((h, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem' }}>
-                  <span style={{
-                    color: 'var(--accent-primary)', fontWeight: 800,
-                    fontSize: '1rem', lineHeight: 1.5, flexShrink: 0,
-                  }}>
-                    +
-                  </span>
-                  <span style={{ color: 'var(--text-primary)', fontSize: '0.875rem', lineHeight: 1.55, fontWeight: 500 }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', marginBottom: '0.25rem' }}>
+                  <CheckCircle2 size={16} color="#16a34a" style={{ flexShrink: 0 }} />
+                  <span style={{ color: 'var(--text-primary)', fontSize: '0.875rem', lineHeight: 1.5, fontWeight: 500 }}>
                     {h}
                   </span>
                 </div>
               ))}
             </div>
 
-            {/* Tech stack badges */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
-              {project.tags.map((tag, idx) => (
-                <span
-                  key={idx}
-                  style={{
-                    padding: '0.35rem 0.85rem', borderRadius: '8px',
-                    background: 'rgba(22, 163, 74, 0.1)',
-                    border: '1px solid var(--border-color)',
-                    color: 'var(--accent-primary)',
-                    fontSize: '0.77rem', fontWeight: 600, letterSpacing: '0.03em',
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
+            {/* Tech stack badges with primary/secondary visual hierarchy */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginTop: '1.25rem' }}>
+              {project.tags.map((tag, idx) => {
+                const isPrimary = idx < 4;
+                return (
+                  <span
+                    key={idx}
+                    style={{
+                      padding: '0.35rem 0.85rem',
+                      borderRadius: '8px',
+                      background: isPrimary ? '#16a34a' : 'rgba(22, 163, 74, 0.06)',
+                      border: isPrimary ? '1px solid #16a34a' : '1px solid rgba(22, 163, 74, 0.35)',
+                      color: isPrimary ? '#ffffff' : '#16a34a',
+                      fontSize: '0.77rem',
+                      fontWeight: isPrimary ? 700 : 600,
+                      letterSpacing: '0.03em',
+                      boxShadow: isPrimary ? '0 2px 8px rgba(22, 163, 74, 0.22)' : 'none',
+                    }}
+                  >
+                    {tag}
+                  </span>
+                );
+              })}
             </div>
 
-            {/* CTA buttons */}
-            <div style={{ display: 'flex', gap: '0.75rem', paddingTop: '0.25rem', flexWrap: 'wrap' }}>
+            {/* CTA buttons pinned to bottom via mt-auto */}
+            <div style={{ display: 'flex', gap: '0.75rem', paddingTop: '0.5rem', flexWrap: 'wrap', marginTop: 'auto' }}>
               <a
                 href={project.githubUrl}
                 target="_blank"
@@ -398,7 +405,7 @@ export default function Projects() {
         {projectsData.length > 1 && (
           <div style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center',
-            gap: '0.75rem', marginTop: '3.5rem', flexWrap: 'wrap',
+            gap: '0.75rem', marginTop: '2rem', flexWrap: 'wrap',
           }}>
             <button
               onClick={goPrev}
