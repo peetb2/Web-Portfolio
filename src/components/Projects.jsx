@@ -85,7 +85,7 @@ function DeviceFrame({ screenshots, fallback, title }) {
       </div>
 
       {/* Screenshot area */}
-      <div style={{ position: 'relative', height: '400px', width: '100%', overflow: 'hidden', background: 'var(--bg-primary)' }}>
+      <div className="device-screen-box" style={{ position: 'relative', height: '400px', width: '100%', overflow: 'hidden', background: 'var(--bg-primary)' }}>
         {images.map((img, idx) => (
           <img
             key={idx}
@@ -241,8 +241,12 @@ export default function Projects() {
         .proj-animate { animation: proj-fade-up 0.55s ease both; }
 
         @media (max-width: 900px) {
-          .proj-layout { grid-template-columns: 1fr !important; }
+          .proj-layout { grid-template-columns: 1fr !important; gap: 2rem !important; }
           .proj-info-col { padding-left: 0 !important; }
+        }
+        @media (max-width: 640px) {
+          .device-screen-box { height: 230px !important; }
+          #projects { padding: 4rem 1rem !important; }
         }
       `}</style>
 

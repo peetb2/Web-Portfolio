@@ -279,3 +279,42 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 600px;
   margin: 0 auto;
 }
+
+/* ── Mobile Responsive Overrides ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    font-size: 15px;
+  }
+
+  .section-padding {
+    padding: 3.5rem 1rem !important;
+  }
+
+  .section-title {
+    margin-bottom: 2rem !important;
+  }
+
+  .section-title h2 {
+    font-size: 1.85rem !important;
+  }
+
+  .section-title p {
+    font-size: 0.95rem !important;
+  }
+
+  /* Universal grid auto-fit fix for small screens */
+  .grid-responsive {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-padding {
+    padding: 2.75rem 0.75rem !important;
+  }
+
+  .section-title h2 {
+    font-size: 1.65rem !important;
+  }
+}

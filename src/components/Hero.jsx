@@ -280,7 +280,14 @@ Instructions:
 
           {/* ── Middle: Centered Chat Assistant Container ── */}
           <div style={{ width: '100%', maxWidth: '860px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '0.3rem 0', minHeight: 0 }}>
+            <style>{`
+              @media (max-width: 640px) {
+                .hero-chat-box { max-height: 460px !important; border-radius: 16px !important; }
+                .hero-chat-messages { padding: 1rem !important; min-height: 180px !important; }
+              }
+            `}</style>
             <div
+              className="hero-chat-box"
               style={{
                 width: '100%',
                 background: '#ffffff',
@@ -404,6 +411,7 @@ Instructions:
             {/* Chat Messages Display Area */}
             <div
               ref={chatScrollRef}
+              className="hero-chat-messages"
               style={{
                 flex: 1,
                 minHeight: '220px',
