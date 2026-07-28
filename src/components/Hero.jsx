@@ -117,7 +117,7 @@ Instructions:
     // Smart Local Fallback Answer if API calls encounter rate limit or network issue
     const lowerPrompt = userPrompt.toLowerCase();
     if (lowerPrompt.includes('education') || lowerPrompt.includes('school') || lowerPrompt.includes('university')) {
-      return `${personalInfo.name} is currently studying Computer Science & Software Development at Bangkok University (2023 - Present) and graduated from Triamudom Suksa Pattanakarn Suvarnabhumi School (2016 - 2022).`;
+      return `${personalInfo.name} is currently studying Information Technology at Bangkok University (2023 - Present) and graduated from Triamudom Suksa Pattanakarn Suvarnabhumi School (2016 - 2022).`;
     } else if (lowerPrompt.includes('about') || lowerPrompt.includes('who')) {
       return `${personalInfo.name} is a Local AI Specialist & Full-Stack Architect based in ${personalInfo.location}. ${personalInfo.bio}`;
     } else if (lowerPrompt.includes('skill') || lowerPrompt.includes('tech')) {

@@ -110,7 +110,7 @@ export const projectsData = [
 export const educationData = [
   {
     school: "Bangkok University",
-    degree: "Computer Science & Software Development",
+    degree: "Information Technology",
     period: "2023 - Present",
     status: "Current Student"
   },
