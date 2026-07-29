@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, Code2, Sparkles, Play, Bot } from 'lucide-react';
+import { Sun, Moon, Menu, X, Code2, Sparkles, Bot } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export default function Navbar({ theme, toggleTheme, onReplayIntro }) {
+export default function Navbar({ theme, toggleTheme }) {
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -141,30 +142,6 @@ export default function Navbar({ theme, toggleTheme, onReplayIntro }) {
 
         {/* Action Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          {/* Replay Intro Button */}
-          {onReplayIntro && (
-            <button
-              onClick={onReplayIntro}
-              title="Replay Code Intro Animation"
-              className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 font-semibold text-xs transition-all hover:bg-emerald-500/20"
-              style={{
-                gap: '0.4rem',
-                padding: '0.5rem 0.85rem',
-                borderRadius: 'var(--radius-full)',
-                background: 'rgba(22, 163, 74, 0.08)',
-                border: '1px solid rgba(22, 163, 74, 0.25)',
-                color: '#16a34a',
-                cursor: 'pointer',
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                transition: 'all 0.2s ease',
-              }}
-            >
-              <Play size={15} />
-              <span className="terminal-text">Intro</span>
-            </button>
-          )}
-
           {/* Theme Switcher */}
           <button
             onClick={toggleTheme}
