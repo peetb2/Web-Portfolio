@@ -145,9 +145,8 @@ export default function Navbar({ theme, toggleTheme, onReplayIntro }) {
             <button
               onClick={onReplayIntro}
               title="Replay Code Intro Animation"
+              className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 font-semibold text-xs transition-all hover:bg-emerald-500/20"
               style={{
-                display: 'flex',
-                alignItems: 'center',
                 gap: '0.4rem',
                 padding: '0.5rem 0.85rem',
                 borderRadius: 'var(--radius-full)',
@@ -161,7 +160,7 @@ export default function Navbar({ theme, toggleTheme, onReplayIntro }) {
               }}
             >
               <Play size={15} />
-              <span style={{ display: 'none' }} className="terminal-text">Intro</span>
+              <span className="terminal-text">Intro</span>
             </button>
           )}
 
@@ -192,7 +191,7 @@ export default function Navbar({ theme, toggleTheme, onReplayIntro }) {
               padding: '0.55rem 1.25rem',
               fontSize: '0.85rem',
             }}
-            className="desktop-cta btn-primary"
+            className="hidden md:flex btn-primary"
           >
             <Sparkles size={15} />
             Hire Me
@@ -210,7 +209,7 @@ export default function Navbar({ theme, toggleTheme, onReplayIntro }) {
               cursor: 'pointer',
               display: 'flex',
             }}
-            className="mobile-menu-btn"
+            className="mobile-menu-btn md:hidden"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -264,7 +263,6 @@ export default function Navbar({ theme, toggleTheme, onReplayIntro }) {
       <style>{`
         @media (min-width: 768px) {
           .desktop-nav { display: flex !important; }
-          .desktop-cta { display: inline-flex !important; }
           .mobile-menu-btn { display: none !important; }
           .terminal-text { display: inline !important; }
         }

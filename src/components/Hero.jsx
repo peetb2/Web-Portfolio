@@ -279,15 +279,18 @@ Instructions:
           </div>
 
           {/* ── Middle: Centered Chat Assistant Container ── */}
-          <div style={{ width: '100%', maxWidth: '860px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '0.3rem 0', minHeight: 0 }}>
+          <div className="mt-8 md:mt-12" style={{ width: '100%', maxWidth: '860px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '0.3rem 0', minHeight: 0 }}>
             <style>{`
               @media (max-width: 640px) {
                 .hero-chat-box { max-height: 460px !important; border-radius: 16px !important; }
-                .hero-chat-messages { padding: 1rem !important; min-height: 180px !important; }
+                .hero-chat-header { padding: 0.4rem 0.75rem !important; }
+                .hero-chat-messages { padding: 0.75rem !important; min-height: 160px !important; gap: 0.75rem !important; }
+                .hero-chat-chips { padding: 0.4rem 0.75rem !important; }
+                .hero-chat-form { padding: 0.5rem 0.75rem 0.75rem 0.75rem !important; }
               }
             `}</style>
             <div
-              className="hero-chat-box"
+              className="hero-chat-box mt-8 md:mt-12"
               style={{
                 width: '100%',
                 background: '#ffffff',
@@ -304,6 +307,7 @@ Instructions:
             >
             {/* Chat Box Top Header Bar — Compact Sleek Header */}
             <div
+              className="hero-chat-header"
               style={{
                 padding: '0.55rem 1.15rem',
                 background: '#f8fafc',
@@ -555,14 +559,17 @@ Instructions:
 
             {/* Quick Action Pill Buttons Row - PLACED JUST ABOVE TEXT INPUT FIELD */}
             <div
+              className="flex flex-row overflow-x-auto whitespace-nowrap hero-chat-chips"
               style={{
                 padding: '0.75rem 1.25rem 0.4rem 1.25rem',
                 background: '#ffffff',
                 borderTop: '1px solid #f1f5f9',
                 display: 'flex',
+                flexDirection: 'row',
                 alignItems: 'center',
                 gap: '0.5rem',
                 overflowX: 'auto',
+                whiteSpace: 'nowrap',
                 scrollbarWidth: 'none',
               }}
             >
@@ -572,6 +579,7 @@ Instructions:
                   <button
                     key={idx}
                     onClick={() => handlePillClick(pill.query)}
+                    className="flex-shrink-0 inline-flex items-center gap-1.5 whitespace-nowrap"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -585,6 +593,7 @@ Instructions:
                       fontWeight: 600,
                       cursor: 'pointer',
                       whiteSpace: 'nowrap',
+                      flexShrink: 0,
                       transition: 'all 0.2s ease',
                       boxShadow: '0 1px 3px rgba(22, 163, 74, 0.06)',
                     }}
@@ -614,6 +623,7 @@ Instructions:
                 e.preventDefault();
                 handleSendMessage();
               }}
+              className="hero-chat-form"
               style={{
                 padding: '0.85rem 1.25rem 1.25rem 1.25rem',
                 background: '#ffffff',

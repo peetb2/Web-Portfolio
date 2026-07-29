@@ -165,6 +165,7 @@ export default function CodingIntro({ onComplete }) {
 
       {/* ── Main card ── */}
       <div
+        className="p-5 sm:p-9"
         style={{
           width: '100%', maxWidth: '820px',
           background: 'rgba(255, 255, 255, 0.75)',
@@ -172,22 +173,21 @@ export default function CodingIntro({ onComplete }) {
           borderRadius: '28px',
           border: '1.5px solid rgba(22, 163, 74, 0.2)',
           boxShadow: '0 30px 80px -15px rgba(22, 163, 74, 0.15), 0 0 0 1px rgba(255,255,255,0.8)',
-          padding: '2.25rem',
           display: 'flex', flexDirection: 'column', alignItems: 'center',
           position: 'relative', zIndex: 10,
         }}
       >
         {/* ── Top badges bar ── */}
         <div
+          className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left md:justify-between w-full mb-6 pb-4 border-b border-emerald-500/10 gap-3"
           style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            width: '100%', marginBottom: '2rem',
+            width: '100%', marginBottom: '1.5rem',
             paddingBottom: '1rem',
             borderBottom: '1px solid rgba(22, 163, 74, 0.12)',
           }}
         >
           {/* Brand */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left gap-3">
             <div
               style={{
                 position: 'relative',
@@ -214,19 +214,23 @@ export default function CodingIntro({ onComplete }) {
               <div style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', color: '#0d1f12' }}>
                 Turter<span style={{ color: '#16a34a' }}>AI</span> Neural Engine
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#3d6b4f', fontFamily: 'monospace' }}>
+              <div
+                className="text-xs md:text-sm break-all break-words mt-0.5"
+                style={{ color: '#3d6b4f', fontFamily: 'monospace' }}
+              >
                 LOCAL MODEL: turterai-llama-3-8b-q4_k_m.gguf
               </div>
             </div>
           </div>
 
           {/* Badges */}
-          <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <div className="flex flex-row gap-2 mt-4 md:mt-0 flex-wrap justify-center md:justify-start">
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
               padding: '0.35rem 0.8rem', borderRadius: '9999px',
               background: 'rgba(22, 163, 74, 0.1)', border: '1px solid rgba(22, 163, 74, 0.3)',
               color: '#16a34a', fontSize: '0.75rem', fontWeight: 600,
+              whiteSpace: 'nowrap',
             }}>
               <ShieldCheck size={14} /><span>100% On-Device</span>
             </div>
@@ -235,6 +239,7 @@ export default function CodingIntro({ onComplete }) {
               padding: '0.35rem 0.8rem', borderRadius: '9999px',
               background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)',
               color: '#059669', fontSize: '0.75rem', fontWeight: 600,
+              whiteSpace: 'nowrap',
             }}>
               <Zap size={14} /><span>148tok/s CUDA 12.4</span>
             </div>
@@ -402,10 +407,13 @@ export default function CodingIntro({ onComplete }) {
       </div>
 
       {/* ── Keyboard hint ── */}
-      <div style={{
-        marginTop: '1.5rem', color: 'rgba(22, 163, 74, 0.55)',
-        fontSize: '0.825rem', display: 'flex', alignItems: 'center', gap: '0.5rem', zIndex: 10,
-      }}>
+      <div
+        className="hidden md:flex"
+        style={{
+          marginTop: '1.5rem', color: 'rgba(22, 163, 74, 0.55)',
+          fontSize: '0.825rem', alignItems: 'center', gap: '0.5rem', zIndex: 10,
+        }}
+      >
         <Sparkles size={14} color="#16a34a" />
         <span>Press <kbd style={{ background: 'rgba(22,163,74,0.1)', padding: '2px 6px', borderRadius: '4px', color: '#16a34a' }}>ENTER</kbd> or <kbd style={{ background: 'rgba(22,163,74,0.1)', padding: '2px 6px', borderRadius: '4px', color: '#16a34a' }}>ESC</kbd> to skip intro</span>
       </div>
