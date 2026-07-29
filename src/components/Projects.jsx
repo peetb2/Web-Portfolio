@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { ExternalLink, GitBranch, ChevronLeft, ChevronRight, ArrowUpRight, CheckCircle2, Layers, Cpu, Sparkles, X } from 'lucide-react';
 import { projectsData } from '../data/portfolioData';
+
 
 /* ─── Browser-chrome device frame with auto-advancing screenshot carousel ─── */
 function DeviceFrame({ screenshots, fallback, title }) {
@@ -229,10 +231,11 @@ function ArchitectureModal({ project, onClose }) {
     ? (project.architectureDetails?.keyContributionsThai || project.highlightsThai || project.highlights)
     : (project.architectureDetails?.keyContributions || project.highlights || []);
 
-  return (
+  return createPortal(
     <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/75 backdrop-blur-md"
       style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
+        position: 'fixed', inset: 0, zIndex: 100,
         background: 'rgba(0, 0, 0, 0.75)',
         backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -287,7 +290,7 @@ function ArchitectureModal({ project, onClose }) {
             </button>
           </div>
 
-          {/* Close Button */}
+          {/* Close Modal Button */}
           <button
             onClick={onClose}
             style={{
@@ -295,42 +298,53 @@ function ArchitectureModal({ project, onClose }) {
               background: 'var(--bg-primary)',
               border: '1px solid var(--border-color)',
               color: 'var(--text-primary)', display: 'flex', alignItems: 'center',
-              justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s',
+              justifyContent: 'center', cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(22, 163, 74, 0.15)')}
-            onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--bg-primary)')}
           >
             <X size={20} />
           </button>
         </div>
 
-        {/* Modal Title */}
-        <div style={{ marginBottom: '1.75rem', paddingRight: '120px' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0, lineHeight: 1.3 }}>
+        {/* Modal Header */}
+        <div style={{ marginBottom: '1.75rem', paddingRight: '7rem' }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+            padding: '0.25rem 0.75rem', borderRadius: '999px',
+            background: 'rgba(22, 163, 74, 0.1)', border: '1px solid rgba(22, 163, 74, 0.25)',
+            color: '#16a34a', fontSize: '0.75rem', fontWeight: 700,
+            marginBottom: '0.65rem',
+          }}>
+            <Sparkles size={14} />
+            <span>{isTH ? 'รายละเอียดผลงานเชิงลึก' : 'STUDENT CONTRIBUTION & ARCHITECTURE'}</span>
+          </div>
+
+          <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
             {isTH ? `สิ่งที่ฉันทำใน ${project.title.split('–')[0].trim()}` : `What I Did in ${project.title.split('–')[0].trim()}`}
-          </h2>
+          </h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.35rem' }}>
+            {project.subtitle}
+          </p>
         </div>
 
-        {/* My Role */}
+        {/* Highlight Student Role Banner */}
         {roleText && (
-          <div style={{ marginBottom: '1.25rem' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '0.25rem' }}>
-              {isTH ? 'บทบาทหลัก (My Role)' : 'My Role'}
-            </span>
-            <div style={{ color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 700 }}>
-              {roleText}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(22, 163, 74, 0.12) 0%, rgba(34, 197, 94, 0.06) 100%)',
+            border: '1px solid rgba(22, 163, 74, 0.3)',
+            borderRadius: '14px', padding: '1.15rem 1.35rem', marginBottom: '1.75rem',
+            boxShadow: '0 4px 15px rgba(22, 163, 74, 0.06)',
+          }}>
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: '0.5rem',
+              color: '#16a34a', fontWeight: 800, fontSize: '0.85rem',
+              letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: '0.4rem',
+            }}>
+              <Cpu size={16} />
+              <span>{isTH ? 'บทบาทหน้าที่หลัก (My Core Role)' : 'My Core Role & Primary Responsibilities'}</span>
             </div>
-          </div>
-        )}
-
-        {/* The Goal */}
-        {goalText && (
-          <div style={{ marginBottom: '1.25rem' }}>
-            <h3 style={{ fontSize: '0.85rem', fontWeight: 800, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 0.35rem 0' }}>
-              {isTH ? 'เป้าหมายของโปรเจกต์ (The Goal)' : 'The Goal'}
-            </h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.925rem', lineHeight: 1.65, margin: 0 }}>
-              {goalText}
+            <p style={{ color: 'var(--text-primary)', fontSize: '0.975rem', lineHeight: 1.6, margin: 0, fontWeight: 500 }}>
+              {roleText}
             </p>
           </div>
         )}
@@ -416,7 +430,8 @@ function ArchitectureModal({ project, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

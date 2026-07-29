@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { X, ExternalLink, GitBranch, CheckCircle2, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 
 function ImageCarousel({ screenshots, fallback, title }) {
+
   const [current, setCurrent] = useState(0);
   const images = screenshots && screenshots.length > 0 ? screenshots : [{ src: fallback, label: title }];
 
@@ -119,10 +121,11 @@ function ImageCarousel({ screenshots, fallback, title }) {
 export default function ProjectModal({ project, onClose }) {
   if (!project) return null;
 
-  return (
+  return createPortal(
     <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/75 backdrop-blur-md"
       style={{
-        position: 'fixed', inset: 0, zIndex: 2000,
+        position: 'fixed', inset: 0, zIndex: 100,
         background: 'rgba(0, 0, 0, 0.75)',
         backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -241,6 +244,7 @@ export default function ProjectModal({ project, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -46,12 +46,13 @@ export default function Navbar({ theme, toggleTheme, onReplayIntro }) {
 
   return (
     <header
+      className="z-50"
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 1000,
+        zIndex: 50,
         padding: scrolled ? '0.8rem 1.5rem' : '1.25rem 1.5rem',
         background: scrolled ? 'var(--bg-glass)' : 'transparent',
         backdropFilter: scrolled ? 'blur(16px)' : 'none',
