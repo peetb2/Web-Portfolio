@@ -6,7 +6,7 @@ export const personalInfo = {
   location: "Open to Remote & Global Collaborations",
   status: "Local AI & LLM Engineering Specialist",
   bio: "Hi, I'm currently focusing my path as an AI Engineer and Full-Stack Developer. I'm incredibly passionate about bridging the gap between local AI infrastructure and modern web applications. My work spans the entire stack—from containerizing local LLMs via Docker with GPU acceleration and engineering serverless AWS backends (Lambda, S3, API Gateway), right through to developing the frontends that tie it all together. My projects range from a license key management system for an AI Hub to an AI Resume Screener. I love building practical, scalable tools end-to-end. Feel free to chat with the AI assistant on this page to learn more about my work!",
-  avatar: "/hero_avatar.jpg",
+  avatar: "/me.jpg",
   email: "rachata.pims@bumail.net",
   phone: "0624068468",
   languages: [

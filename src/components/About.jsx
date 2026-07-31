@@ -74,26 +74,26 @@ export default function About() {
             {/* Circle avatar */}
             <div style={{ position: 'relative' }}>
               <div style={{
-                width: '200px', height: '200px',
+                width: '270px', height: '270px',
                 borderRadius: '50%',
                 overflow: 'hidden',
                 border: '4px solid rgba(22,163,74,0.35)',
-                boxShadow: '0 0 0 8px rgba(22,163,74,0.07), 0 20px 60px rgba(22,163,74,0.2)',
+                boxShadow: '0 0 0 10px rgba(22,163,74,0.07), 0 20px 60px rgba(22,163,74,0.2)',
                 background: '#fff',
               }}>
                 <img
-                  src="/turtle_idle.png"
+                  src="/me.jpg"
                   alt={personalInfo.name}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }}
                 />
               </div>
               {/* Online dot */}
               <span style={{
-                position: 'absolute', bottom: '12px', right: '12px',
-                width: '18px', height: '18px', borderRadius: '50%',
+                position: 'absolute', bottom: '16px', right: '16px',
+                width: '22px', height: '22px', borderRadius: '50%',
                 background: '#22c55e',
-                border: '3px solid #fff',
-                boxShadow: '0 0 10px #22c55e',
+                border: '3.5px solid #fff',
+                boxShadow: '0 0 12px #22c55e',
               }} className="animate-pulse-glow" />
             </div>
 
