@@ -3,6 +3,17 @@ import { Send, Bot, User, RefreshCw, Briefcase, UserCheck, Zap, Mail, FolderGit2
 import { personalInfo, skillsData, projectsData, educationData, certificationsData } from '../data/portfolioData';
 import AuroraBackground from './reactbits/AuroraBackground';
 
+function renderFormattedText(text) {
+  if (!text) return '';
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+      return <strong key={i} style={{ fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+}
+
 export default function Hero() {
   const [messages, setMessages] = useState([
     {
@@ -68,6 +79,7 @@ Portfolio Details:
 Instructions:
 - CRITICAL THAI NAME RULE: Rachata's Thai name is strictly "รชฏะ พิมพ์ทรัพย์ศิริ". You MUST ALWAYS use the exact spelling "รชฏะ พิมพ์ทรัพย์ศิริ" whenever writing or responding with his name in Thai.
 - Keep answers concise, clear, and helpful (2-4 sentences unless bullet points are requested).
+- Do not output raw markdown asterisks (like **) for formatting unless necessary.
 - If asked about projects, highlight AI Hub (self-hosted local LLM platform) and AI Resume Screener (AWS Lambda serverless parser).
 - If asked about skills, highlight Local LLMs (Ollama, vLLM), Docker Desktop, AWS Serverless (Lambda, S3, API Gateway), React 19, and Full-Stack development.
 - Always maintain high contrast clarity and friendly tone.`;
@@ -488,7 +500,7 @@ Instructions:
                         whiteSpace: 'pre-wrap',
                       }}
                     >
-                      {msg.text}
+                      {renderFormattedText(msg.text)}
                     </div>
                   </div>
                 </div>
