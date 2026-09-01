@@ -1,6 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Terminal as TerminalIcon, X, Minimize2, Maximize2, CornerDownLeft } from 'lucide-react';
-import { personalInfo, skillsData, projectsData } from '../data/portfolioData';
+function renderFormattedText(text) {
+  if (!text) return '';
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+      return <strong key={i} style={{ fontWeight: 700, color: 'var(--text-primary, #ffffff)' }}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+}
 
 export default function InteractiveTerminal({ isOpen, onClose }) {
   const [input, setInput] = useState('');
@@ -178,7 +185,7 @@ export default function InteractiveTerminal({ isOpen, onClose }) {
                 whiteSpace: 'pre-wrap',
               }}
             >
-              {item.text}
+              {renderFormattedText(item.text)}
             </div>
           ))}
           <div ref={bottomRef} />
