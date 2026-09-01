@@ -1,87 +1,108 @@
 import React, { useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { X, ExternalLink, GitBranch, CheckCircle2, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ExternalLink, GitBranch, CheckCircle2, Sparkles, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
 function ImageCarousel({ screenshots, fallback, title }) {
-
   const [current, setCurrent] = useState(0);
+  const [fullscreenImg, setFullscreenImg] = useState(null);
   const images = screenshots && screenshots.length > 0 ? screenshots : [{ src: fallback, label: title }];
 
   const prev = useCallback(() => setCurrent((c) => (c - 1 + images.length) % images.length), [images.length]);
   const next = useCallback(() => setCurrent((c) => (c + 1) % images.length), [images.length]);
 
   return (
-    <div style={{ position: 'relative', height: '280px', width: '100%', overflow: 'hidden', background: '#000' }}>
-      {/* Slides */}
-      {images.map((img, idx) => (
-        <div
-          key={idx}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            opacity: idx === current ? 1 : 0,
-            transition: 'opacity 0.45s ease',
-            pointerEvents: idx === current ? 'auto' : 'none',
-          }}
-        >
+    <div style={{ display: 'flex', flexDirection: 'column', height: '420px', width: '100%', overflow: 'hidden', background: 'var(--bg-primary)' }}>
+      {/* Viewport for uncropped screenshot */}
+      <div style={{ flex: 1, position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px', overflow: 'hidden' }}>
+        {images.map((img, idx) => (
           <img
+            key={idx}
             src={img.src}
             alt={img.label}
+            onClick={() => setFullscreenImg(current)}
             style={{
               position: 'absolute',
-              top: 0, left: 0, right: 0, bottom: 0,
-              width: '100%', height: '100%',
-              objectFit: 'cover', objectPosition: 'top center',
+              maxWidth: 'calc(100% - 24px)',
+              maxHeight: 'calc(100% - 24px)',
+              width: 'auto',
+              height: 'auto',
+              objectFit: 'contain',
+              borderRadius: '8px',
+              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
+              opacity: idx === current ? 1 : 0,
+              transition: 'opacity 0.4s ease-in-out',
+              pointerEvents: idx === current ? 'auto' : 'none',
               zIndex: idx === current ? 2 : 1,
+              cursor: 'zoom-in',
             }}
+            title="Click to expand full screen"
           />
-          {/* gradient overlay */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--bg-secondary) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)' }} />
-        </div>
-      ))}
+        ))}
 
-      {/* Prev / Next arrows — only show if multiple images */}
-      {images.length > 1 && (
-        <>
-          <button
-            onClick={prev}
-            style={{
-              position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)',
-              zIndex: 5, width: '36px', height: '36px', borderRadius: '50%',
-              background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)',
-              color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', backdropFilter: 'blur(6px)',
-            }}
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <button
-            onClick={next}
-            style={{
-              position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)',
-              zIndex: 5, width: '36px', height: '36px', borderRadius: '50%',
-              background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)',
-              color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', backdropFilter: 'blur(6px)',
-            }}
-          >
-            <ChevronRight size={18} />
-          </button>
-        </>
-      )}
+        {/* Fullscreen Hint Button */}
+        <button
+          onClick={() => setFullscreenImg(current)}
+          style={{
+            position: 'absolute', top: '0.75rem', right: '0.75rem', zIndex: 7,
+            display: 'flex', alignItems: 'center', gap: '5px',
+            padding: '0.35rem 0.65rem', borderRadius: '8px',
+            background: 'rgba(15, 23, 42, 0.85)', border: '1px solid rgba(255,255,255,0.2)',
+            color: '#ffffff', fontSize: '0.72rem', fontWeight: 600,
+            backdropFilter: 'blur(6px)', cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = '#16a34a')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(15, 23, 42, 0.85)')}
+          title="Click to view full screen"
+        >
+          <Maximize2 size={13} /> Fullscreen
+        </button>
 
-      {/* Bottom bar: label + dots */}
+        {/* Prev / Next arrows */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              style={{
+                position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)',
+                zIndex: 5, width: '36px', height: '36px', borderRadius: '50%',
+                background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)',
+                color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', backdropFilter: 'blur(6px)',
+              }}
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              onClick={next}
+              style={{
+                position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)',
+                zIndex: 5, width: '36px', height: '36px', borderRadius: '50%',
+                background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)',
+                color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', backdropFilter: 'blur(6px)',
+              }}
+            >
+              <ChevronRight size={18} />
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Bottom explanation card */}
       <div
         style={{
-          position: 'absolute', bottom: '1rem', left: '1.5rem', right: '1.5rem',
-          display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', zIndex: 5,
+          background: 'var(--bg-secondary)',
+          borderTop: '1px solid var(--border-color)',
+          padding: '0.85rem 1.25rem',
+          display: 'flex', flexDirection: 'column', gap: '0.35rem', zIndex: 5,
         }}
       >
-        {/* slide label */}
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span
             style={{
-              display: 'inline-block', marginBottom: '0.4rem',
+              display: 'inline-block',
               fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.08em',
               padding: '0.25rem 0.65rem', borderRadius: '999px',
               background: '#16a34a', color: '#fff',
@@ -90,30 +111,132 @@ function ImageCarousel({ screenshots, fallback, title }) {
           >
             {images[current].label}
           </span>
+
+          {/* dot indicators */}
+          {images.length > 1 && (
+            <div style={{ display: 'flex', gap: '6px', paddingBottom: '2px' }}>
+              {images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrent(idx)}
+                  style={{
+                    width: idx === current ? '18px' : '7px',
+                    height: '7px',
+                    borderRadius: '999px',
+                    background: idx === current ? 'var(--accent-primary)' : 'rgba(255,255,255,0.35)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    padding: 0,
+                  }}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* dot indicators */}
-        {images.length > 1 && (
-          <div style={{ display: 'flex', gap: '6px', paddingBottom: '2px' }}>
-            {images.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrent(idx)}
-                style={{
-                  width: idx === current ? '18px' : '7px',
-                  height: '7px',
-                  borderRadius: '999px',
-                  background: idx === current ? 'var(--accent-primary)' : 'rgba(255,255,255,0.35)',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  padding: 0,
-                }}
-              />
-            ))}
-          </div>
+        {images[current].desc && (
+          <p style={{
+            color: 'var(--text-secondary)',
+            fontSize: '0.8rem',
+            lineHeight: 1.45,
+            margin: 0,
+            fontWeight: 500,
+          }}>
+            {images[current].desc}
+          </p>
         )}
       </div>
+
+      {/* Fullscreen Lightbox Modal */}
+      {fullscreenImg !== null && createPortal(
+        <div
+          style={{
+            position: 'fixed', inset: 0, zIndex: 99999,
+            background: 'rgba(0, 0, 0, 0.93)',
+            backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            padding: '1.5rem',
+          }}
+          onClick={() => setFullscreenImg(null)}
+        >
+          <button
+            onClick={() => setFullscreenImg(null)}
+            style={{
+              position: 'absolute', top: '1.5rem', right: '1.5rem', zIndex: 100000,
+              width: '44px', height: '44px', borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.12)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+              color: '#ffffff', display: 'flex', alignItems: 'center',
+              justifyContent: 'center', cursor: 'pointer',
+            }}
+          >
+            <X size={24} />
+          </button>
+
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); setFullscreenImg((fullscreenImg - 1 + images.length) % images.length); }}
+                style={{
+                  position: 'absolute', left: '1.5rem', top: '50%', transform: 'translateY(-50%)',
+                  zIndex: 100000, width: '48px', height: '48px', borderRadius: '50%',
+                  background: 'rgba(22, 163, 74, 0.9)', border: '1px solid rgba(255,255,255,0.3)',
+                  color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer',
+                }}
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setFullscreenImg((fullscreenImg + 1) % images.length); }}
+                style={{
+                  position: 'absolute', right: '1.5rem', top: '50%', transform: 'translateY(-50%)',
+                  zIndex: 100000, width: '48px', height: '48px', borderRadius: '50%',
+                  background: 'rgba(22, 163, 74, 0.9)', border: '1px solid rgba(255,255,255,0.3)',
+                  color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer',
+                }}
+              >
+                <ChevronRight size={24} />
+              </button>
+            </>
+          )}
+
+          <div
+            style={{ position: 'relative', maxWidth: '92vw', maxHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={images[fullscreenImg].src}
+              alt={images[fullscreenImg].label}
+              style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain', borderRadius: '12px', boxShadow: '0 25px 60px rgba(0,0,0,0.8)' }}
+            />
+          </div>
+
+          <div
+            style={{
+              position: 'absolute', bottom: '1.5rem',
+              background: 'rgba(15, 23, 42, 0.88)', border: '1px solid rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(12px)', padding: '0.85rem 1.5rem', borderRadius: '16px',
+              maxWidth: '700px', width: '90%', display: 'flex', flexDirection: 'column',
+              gap: '0.35rem', textAlign: 'center', alignItems: 'center', zIndex: 100000,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span style={{ fontSize: '0.82rem', fontWeight: 800, padding: '0.25rem 0.85rem', borderRadius: '999px', background: '#16a34a', color: '#ffffff' }}>
+              {images[fullscreenImg].label}
+            </span>
+            {images[fullscreenImg].desc && (
+              <p style={{ color: 'rgba(241, 245, 249, 0.95)', fontSize: '0.85rem', margin: 0, lineHeight: 1.45 }}>
+                {images[fullscreenImg].desc}
+              </p>
+            )}
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

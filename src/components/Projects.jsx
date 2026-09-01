@@ -1,8 +1,158 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { ExternalLink, GitBranch, ChevronLeft, ChevronRight, ArrowUpRight, CheckCircle2, Layers, Cpu, Sparkles, X } from 'lucide-react';
+import { ExternalLink, GitBranch, ChevronLeft, ChevronRight, ArrowUpRight, CheckCircle2, Layers, Cpu, Sparkles, X, Maximize2 } from 'lucide-react';
 import { projectsData } from '../data/portfolioData';
 
+/* ─── Full-screen Image Lightbox Modal ─── */
+function ImageLightbox({ images, currentIndex, onClose, onSelect }) {
+  if (currentIndex === null || currentIndex === undefined || currentIndex < 0) return null;
+  const currentImg = images[currentIndex];
+
+  const goPrev = (e) => {
+    e.stopPropagation();
+    onSelect((currentIndex - 1 + images.length) % images.length);
+  };
+
+  const goNext = (e) => {
+    e.stopPropagation();
+    onSelect((currentIndex + 1) % images.length);
+  };
+
+  return createPortal(
+    <div
+      style={{
+        position: 'fixed', inset: 0, zIndex: 9999,
+        background: 'rgba(0, 0, 0, 0.92)',
+        backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        padding: '1.5rem',
+      }}
+      onClick={onClose}
+    >
+      {/* Top Close Button */}
+      <button
+        onClick={onClose}
+        style={{
+          position: 'absolute', top: '1.5rem', right: '1.5rem', zIndex: 10000,
+          width: '44px', height: '44px', borderRadius: '50%',
+          background: 'rgba(255, 255, 255, 0.12)',
+          border: '1px solid rgba(255, 255, 255, 0.25)',
+          color: '#ffffff', display: 'flex', alignItems: 'center',
+          justifyContent: 'center', cursor: 'pointer',
+          transition: 'all 0.2s ease',
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(239, 68, 68, 0.85)')}
+        onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)')}
+        title="Close fullscreen view"
+      >
+        <X size={24} />
+      </button>
+
+      {/* Prev / Next navigation buttons */}
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={goPrev}
+            style={{
+              position: 'absolute', left: '1.5rem', top: '50%', transform: 'translateY(-50%)',
+              zIndex: 10000, width: '48px', height: '48px', borderRadius: '50%',
+              background: 'rgba(22, 163, 74, 0.9)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)')}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(-50%) scale(1)')}
+            title="Previous screenshot"
+          >
+            <ChevronLeft size={24} />
+          </button>
+
+          <button
+            onClick={goNext}
+            style={{
+              position: 'absolute', right: '1.5rem', top: '50%', transform: 'translateY(-50%)',
+              zIndex: 10000, width: '48px', height: '48px', borderRadius: '50%',
+              background: 'rgba(22, 163, 74, 0.9)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)')}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(-50%) scale(1)')}
+            title="Next screenshot"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </>
+      )}
+
+      {/* Main Fullscreen Image Container */}
+      <div
+        style={{
+          position: 'relative',
+          maxWidth: '92vw',
+          maxHeight: '80vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={currentImg.src}
+          alt={currentImg.label}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '80vh',
+            objectFit: 'contain',
+            borderRadius: '12px',
+            boxShadow: '0 25px 60px rgba(0, 0, 0, 0.8)',
+          }}
+        />
+      </div>
+
+      {/* Bottom Information & Caption Bar */}
+      <div
+        style={{
+          position: 'absolute', bottom: '1.5rem',
+          background: 'rgba(15, 23, 42, 0.88)',
+          border: '1px solid rgba(255, 255, 255, 0.15)',
+          backdropFilter: 'blur(12px)',
+          padding: '0.85rem 1.5rem', borderRadius: '16px',
+          maxWidth: '700px', width: '90%',
+          display: 'flex', flexDirection: 'column', gap: '0.35rem',
+          textAlign: 'center', alignItems: 'center', zIndex: 10000,
+          boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <span style={{
+            fontSize: '0.82rem', fontWeight: 800, padding: '0.25rem 0.85rem',
+            borderRadius: '999px', background: '#16a34a', color: '#ffffff',
+          }}>
+            {currentImg.label}
+          </span>
+          {images.length > 1 && (
+            <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', fontWeight: 600 }}>
+              {currentIndex + 1} of {images.length}
+            </span>
+          )}
+        </div>
+        {currentImg.desc && (
+          <p style={{ color: 'rgba(241, 245, 249, 0.95)', fontSize: '0.85rem', margin: 0, lineHeight: 1.45 }}>
+            {currentImg.desc}
+          </p>
+        )}
+      </div>
+    </div>,
+    document.body
+  );
+}
 
 /* ─── Browser-chrome device frame with auto-advancing screenshot carousel ─── */
 function DeviceFrame({ screenshots, fallback, title }) {
@@ -12,6 +162,7 @@ function DeviceFrame({ screenshots, fallback, title }) {
       : [{ src: fallback, label: title }];
 
   const [current, setCurrent] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
   const timerRef = useRef(null);
 
   const resetTimer = () => {
@@ -86,122 +237,172 @@ function DeviceFrame({ screenshots, fallback, title }) {
         </div>
       </div>
 
-      {/* Screenshot area */}
-      <div className="device-screen-box" style={{ position: 'relative', height: '400px', width: '100%', overflow: 'hidden', background: 'var(--bg-primary)' }}>
-        {images.map((img, idx) => (
-          <img
-            key={idx}
-            src={img.src}
-            alt={img.label}
-            onError={(e) => {
-              console.error(`Failed to load image: ${img.src}`);
-            }}
+      {/* Screenshot viewport + explanation card layout */}
+      <div className="device-screen-box" style={{ display: 'flex', flexDirection: 'column', height: '420px', width: '100%', overflow: 'hidden', background: 'var(--bg-primary)' }}>
+        {/* Viewport for uncropped screenshot */}
+        <div style={{ flex: 1, position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px', overflow: 'hidden' }}>
+          {images.map((img, idx) => (
+            <img
+              key={idx}
+              src={img.src}
+              alt={img.label}
+              onClick={() => setLightboxIndex(current)}
+              onError={(e) => {
+                console.error(`Failed to load image: ${img.src}`);
+              }}
+              style={{
+                position: 'absolute',
+                maxWidth: 'calc(100% - 24px)',
+                maxHeight: 'calc(100% - 24px)',
+                width: 'auto',
+                height: 'auto',
+                objectFit: 'contain',
+                borderRadius: '8px',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
+                opacity: idx === current ? 1 : 0,
+                transition: 'opacity 0.4s ease-in-out',
+                pointerEvents: idx === current ? 'auto' : 'none',
+                zIndex: idx === current ? 2 : 1,
+                cursor: 'zoom-in',
+              }}
+              title="Click to expand full screen"
+            />
+          ))}
+
+          {/* Expand Fullscreen Button */}
+          <button
+            onClick={() => setLightboxIndex(current)}
             style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'top center',
-              opacity: idx === current ? 1 : 0,
-              transition: 'opacity 0.5s ease-in-out',
-              pointerEvents: idx === current ? 'auto' : 'none',
-              zIndex: idx === current ? 2 : 1,
+              position: 'absolute', top: '0.75rem', right: '0.75rem', zIndex: 7,
+              display: 'flex', alignItems: 'center', gap: '5px',
+              padding: '0.35rem 0.65rem', borderRadius: '8px',
+              background: 'rgba(15, 23, 42, 0.85)', border: '1px solid rgba(255,255,255,0.2)',
+              color: '#ffffff', fontSize: '0.72rem', fontWeight: 600,
+              backdropFilter: 'blur(6px)', cursor: 'pointer',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+              transition: 'all 0.2s ease',
             }}
-          />
-        ))}
+            onMouseEnter={(e) => (e.currentTarget.style.background = '#16a34a')}
+            onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(15, 23, 42, 0.85)')}
+            title="Click to view full screen"
+          >
+            <Maximize2 size={13} /> Fullscreen
+          </button>
 
-        {/* Prev / Next arrows */}
-        {images.length > 1 && (
-          <>
-            <button
-              onClick={prev}
-              className="device-arrow"
-              style={{
-                position: 'absolute', left: '0.75rem', top: '50%',
-                transform: 'translateY(-50%)', zIndex: 6,
-                width: 36, height: 36, borderRadius: '50%',
-                background: 'rgba(22, 163, 74, 0.9)',
-                border: '1px solid rgba(255,255,255,0.4)',
-                color: '#fff', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', cursor: 'pointer',
-                backdropFilter: 'blur(8px)',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                opacity: 0, transition: 'opacity 0.2s',
-              }}
-            >
-              <ChevronLeft size={17} />
-            </button>
-            <button
-              onClick={next}
-              className="device-arrow"
-              style={{
-                position: 'absolute', right: '0.75rem', top: '50%',
-                transform: 'translateY(-50%)', zIndex: 6,
-                width: 36, height: 36, borderRadius: '50%',
-                background: 'rgba(22, 163, 74, 0.9)',
-                border: '1px solid rgba(255,255,255,0.4)',
-                color: '#fff', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', cursor: 'pointer',
-                backdropFilter: 'blur(8px)',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                opacity: 0, transition: 'opacity 0.2s',
-              }}
-            >
-              <ChevronRight size={17} />
-            </button>
-          </>
-        )}
+          {/* Prev / Next arrows */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={prev}
+                className="device-arrow"
+                style={{
+                  position: 'absolute', left: '0.75rem', top: '50%',
+                  transform: 'translateY(-50%)', zIndex: 6,
+                  width: 36, height: 36, borderRadius: '50%',
+                  background: 'rgba(22, 163, 74, 0.9)',
+                  border: '1px solid rgba(255,255,255,0.4)',
+                  color: '#fff', display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', cursor: 'pointer',
+                  backdropFilter: 'blur(8px)',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                  opacity: 0, transition: 'opacity 0.2s',
+                }}
+              >
+                <ChevronLeft size={17} />
+              </button>
+              <button
+                onClick={next}
+                className="device-arrow"
+                style={{
+                  position: 'absolute', right: '0.75rem', top: '50%',
+                  transform: 'translateY(-50%)', zIndex: 6,
+                  width: 36, height: 36, borderRadius: '50%',
+                  background: 'rgba(22, 163, 74, 0.9)',
+                  border: '1px solid rgba(255,255,255,0.4)',
+                  color: '#fff', display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', cursor: 'pointer',
+                  backdropFilter: 'blur(8px)',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                  opacity: 0, transition: 'opacity 0.2s',
+                }}
+              >
+                <ChevronRight size={17} />
+              </button>
+            </>
+          )}
+        </div>
 
-        {/* Bottom: label + dot indicators */}
+        {/* Dedicated Bottom Explanation Card */}
         <div
           style={{
-            position: 'absolute', bottom: '0.9rem',
-            left: '1rem', right: '1rem',
-            display: 'flex', alignItems: 'center',
-            justifyContent: 'space-between', zIndex: 5,
+            background: 'var(--bg-card)',
+            borderTop: '1px solid var(--border-color)',
+            padding: '0.85rem 1.15rem',
+            display: 'flex', flexDirection: 'column', gap: '0.35rem',
+            zIndex: 5,
           }}
         >
-          <span
-            style={{
-              fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.08em',
-              padding: '0.25rem 0.75rem', borderRadius: '999px',
-              background: '#16a34a', color: '#ffffff',
-              boxShadow: '0 2px 8px rgba(22, 163, 74, 0.3)',
-            }}
-          >
-            {images[current].label}
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span
+              style={{
+                fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.06em',
+                padding: '0.25rem 0.75rem', borderRadius: '999px',
+                background: '#16a34a', color: '#ffffff',
+                boxShadow: '0 2px 8px rgba(22, 163, 74, 0.3)',
+              }}
+            >
+              {images[current].label}
+            </span>
 
-          {images.length > 1 && (
-            <div style={{ display: 'flex', gap: '5px' }}>
-              {images.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrent(idx);
-                    resetTimer();
-                  }}
-                  style={{
-                    width: idx === current ? '18px' : '6px',
-                    height: '6px', borderRadius: '999px',
-                    border: 'none', padding: 0, cursor: 'pointer',
-                    background:
-                      idx === current
-                        ? '#16a34a'
-                        : 'rgba(22, 163, 74, 0.35)',
-                    transition: 'all 0.35s ease',
-                  }}
-                />
-              ))}
-            </div>
+            {images.length > 1 && (
+              <div style={{ display: 'flex', gap: '5px' }}>
+                {images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrent(idx);
+                      resetTimer();
+                    }}
+                    style={{
+                      width: idx === current ? '18px' : '6px',
+                      height: '6px', borderRadius: '999px',
+                      border: 'none', padding: 0, cursor: 'pointer',
+                      background: idx === current ? '#16a34a' : 'rgba(22, 163, 74, 0.35)',
+                      transition: 'all 0.35s ease',
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {images[current].desc && (
+            <p style={{
+              color: 'var(--text-secondary)',
+              fontSize: '0.8rem',
+              lineHeight: 1.45,
+              margin: '0.15rem 0 0 0',
+              fontWeight: 500,
+            }}>
+              {images[current].desc}
+            </p>
           )}
         </div>
       </div>
+
+      {/* Fullscreen Lightbox Modal */}
+      {lightboxIndex !== null && (
+        <ImageLightbox
+          images={images}
+          currentIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onSelect={(newIdx) => {
+            setLightboxIndex(newIdx);
+            setCurrent(newIdx);
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -481,7 +682,7 @@ export default function Projects() {
           .proj-info-col { padding-left: 0 !important; }
         }
         @media (max-width: 640px) {
-          .device-screen-box { height: 230px !important; }
+          .device-screen-box { height: 320px !important; }
           #projects { padding: 3.5rem 1rem !important; }
         }
       `}</style>
@@ -517,7 +718,7 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Two-column showcase - Strict parent minHeight stops navigation jump */}
+        {/* Two-column showcase - Fixed uniform height across all projects */}
         <div
           key={project.id}
           className="proj-layout proj-animate"
@@ -526,7 +727,7 @@ export default function Projects() {
             gridTemplateColumns: '1fr 420px',
             gap: '2.5rem',
             alignItems: 'stretch',
-            minHeight: '700px',
+            minHeight: '520px',
           }}
         >
           {/* LEFT – Device frame */}
@@ -577,7 +778,7 @@ export default function Projects() {
             </div>
 
             {/* Highlights with crisp green checkmark icons */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {(project.highlights || []).slice(0, 4).map((h, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', marginBottom: '0.25rem' }}>
                   <CheckCircle2 size={16} color="#16a34a" style={{ flexShrink: 0 }} />
@@ -588,32 +789,7 @@ export default function Projects() {
               ))}
             </div>
 
-            {/* Tech stack badges with primary/secondary visual hierarchy — mt-8 (2rem) for breathing room */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginTop: '2rem' }}>
-              {project.tags.map((tag, idx) => {
-                const isPrimary = idx < 4;
-                return (
-                  <span
-                    key={idx}
-                    style={{
-                      padding: '0.35rem 0.85rem',
-                      borderRadius: '8px',
-                      background: isPrimary ? '#16a34a' : 'rgba(22, 163, 74, 0.06)',
-                      border: isPrimary ? '1px solid #16a34a' : '1px solid rgba(22, 163, 74, 0.35)',
-                      color: isPrimary ? '#ffffff' : '#16a34a',
-                      fontSize: '0.77rem',
-                      fontWeight: isPrimary ? 700 : 600,
-                      letterSpacing: '0.03em',
-                      boxShadow: isPrimary ? '0 2px 8px rgba(22, 163, 74, 0.22)' : 'none',
-                    }}
-                  >
-                    {tag}
-                  </span>
-                );
-              })}
-            </div>
-
-            {/* CTA buttons pinned to bottom via mt-auto sitting strictly side-by-side */}
+            {/* CTA buttons sitting strictly side-by-side */}
             <div
               className="proj-btn-row flex flex-row items-center gap-4"
               style={{

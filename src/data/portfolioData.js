@@ -58,13 +58,14 @@ export const projectsData = [
     studentRole: "Solo Full-Stack Developer & AI Infrastructure Owner (Architected Docker Desktop containerized LLM pipelines, Supabase auth & data layer, key generation system, token-sharing logic, chatbot UI, and Continue-compatible API key endpoint)",
     image: "/mainmenu.png",
     screenshots: [
-      { src: "/mainmenu.png",    label: "Main Menu" },
-      { src: "/login.png",       label: "Login Page" },
-      { src: "/dashboardsn.png", label: "User Dashboard" },
-      { src: "/aichat.png",      label: "AI Chat" },
-      { src: "/licenseadmin.png",label: "License Admin" },
-      { src: "/adminapi.png",    label: "API Key Management" },
-      { src: "/admin.png",       label: "Admin Panel" },
+      { src: "/mainmenu.png",                 label: "Main Menu",          desc: "Central SaaS dashboard displaying system statistics, model selection catalog, and primary portal navigation." },
+      { src: "/matcha-ai-hub-sn-ai-hub.png", label: "Matcha AI Hub",      desc: "Customized Matcha & SN workspace enabling model switching and multi-user token balance monitoring." },
+      { src: "/login.png",                    label: "Login Page",         desc: "Secure Supabase user authentication with role-based access control and multi-device session management." },
+      { src: "/dashboardsn.png",              label: "User Dashboard",     desc: "Real-time token consumption tracking with live hardware metrics and active license key status." },
+      { src: "/aichat.png",                   label: "AI Chat",            desc: "Interactive in-browser AI chat interface powered directly by containerized local Ollama & vLLM models." },
+      { src: "/licenseadmin.png",             label: "License Admin",      desc: "License key generation & provisioning panel for distributing model-specific token quotas to team members." },
+      { src: "/adminapi.png",                 label: "API Key Management", desc: "OpenAI-compatible REST API proxy key manager for seamless integration with Continue VS Code coding agent." },
+      { src: "/admin.png",                    label: "Admin Panel",        desc: "System administration suite for managing user roles, Docker LLM containers, and global rate limits." },
     ],
     tags: ["Docker Desktop", "Supabase", "PostgreSQL", "React 19", "TypeScript", "Tailwind CSS", "Next.js", "Node.js", "Ollama", "vLLM", "FastAPI", "API Keys"],
     liveUrl: "https://github.com/peetb2/AI-Hub",
@@ -153,9 +154,9 @@ export const projectsData = [
     studentRoleThai: "สถาปนิก Cloud & นักพัฒนา Full-Stack เดี่ยว (พัฒนาระบบ UI แบบ Drag-and-Drop ด้วย React 19, ระบบแกะสลัก Resume ด้วย Python AWS Lambda & Regex, กำหนด Security Policy CORS บน S3 และเชื่อมต่อ API Gateway REST)",
     image: "/mainmenuaiscreen.png",
     screenshots: [
-      { src: "/mainmenuaiscreen.png", label: "Upload Resume Page" },
-      { src: "/aiscreening.png",       label: "Automated Candidate Scoring" },
-      { src: "/Aws.png",               label: "AWS Serverless Cloud Architecture" },
+      { src: "/mainmenuaiscreen.png", label: "Upload Resume Page",               desc: "Interactive React 19 drag-and-drop file uploader streaming documents directly into an Amazon S3 cloud bucket." },
+      { src: "/aiscreening.png",       label: "Automated Candidate Scoring",      desc: "Real-time candidate evaluation table powered by Python Lambda regex parser and weighted tech stack match scoring." },
+      { src: "/Aws.png",               label: "AWS Serverless Cloud Architecture", desc: "Event-driven cloud architecture diagram linking Amazon API Gateway, AWS Lambda, S3 bucket, and Amplify hosting." },
     ],
     tags: ["AWS Lambda", "Amazon S3", "API Gateway", "AWS Amplify", "Python", "React 19", "Material-UI", "Boto3", "Serverless"],
     liveUrl: "https://github.com/peetb2/AI-Screening-resume",
@@ -224,6 +225,89 @@ export const projectsData = [
       ],
       result: "A 100% serverless web application that is lightning-fast, auto-scaling, and highly cost-optimized. This project serves as a strong demonstration of designing, building, and deploying production-ready AWS cloud architectures.",
       resultThai: "เราได้ Web Application แบบ Serverless 100% ที่ทำงานได้รวดเร็ว สเกลตัวเองได้อัตโนมัติตามจำนวนคนใช้งาน (Auto-scaling) และตอบโจทย์การใช้งานจริง ซึ่งโชว์ให้เห็นถึงทักษะในการออกแบบ AWS Architecture ที่เน้นทั้งประสิทธิภาพและการจัดการต้นทุน (Cost-optimization) ครับ"
+    }
+  },
+  {
+    id: "project-animetour",
+    title: "Anime Tour System – Automated Backup & Cloud Booking Platform",
+    category: "Full-Stack & DevOps",
+    description: "Interactive anime-themed tour booking platform paired with an automated GitHub Actions CI/CD daily database backup pipeline, Core Web Vitals performance telemetry, and system audit logging powered by Supabase.",
+    longDescription: "Anime Tour System is a full-stack web application and DevOps pipeline designed for booking anime travel experiences. It features a complete customer booking interface, a role-based administrative dashboard (backend.html), and an automated database backup infrastructure. Every night at midnight UTC, a GitHub Actions cron workflow executes a Node.js backup engine (export-data.js) that fetches snapshots of all Supabase database tables (bookings, profiles, reviews, inquiries, metrics, logs, packages) and commits version-controlled JSON backups back to the repository. It also features real-time in-browser Web Vitals performance monitoring (TTFB, LCP, CLS) and structured audit logging.",
+    studentRole: "Lead Full-Stack & DevOps Engineer (Engineered automated GitHub Actions CI/CD daily backup system, Node.js REST exporter, Supabase database layer, Web Vitals telemetry, audit logging system, and Admin Dashboard)",
+    studentRoleThai: "นักพัฒนา Full-Stack & DevOps หลัก (พัฒนาระบบ Backup ฐานข้อมูลอัตโนมัติด้วย GitHub Actions CI/CD & Node.js, วางระบบ Supabase Database, พัฒนาระบบวัดผลประสิทธิภาพ Web Vitals, Audit Logging และ Admin Dashboard)",
+    image: "/anime-tour-system.png",
+    screenshots: [
+      { src: "/anime-tour-system.png", label: "Anime Tour System",          desc: "Interactive anime tour booking platform with package details, reservation logic, and Supabase integration." },
+      { src: "/animeadminpage.png",    label: "Admin Management Dashboard", desc: "Comprehensive admin portal (backend.html) for managing tour packages, booking states, customer records, and system analytics." },
+      { src: "/mainmenutridev.png",    label: "Main Menu & Booking Portal", desc: "User navigation dashboard providing quick access to featured packages, user profiles, and active bookings." },
+    ],
+    tags: ["GitHub Actions", "Node.js", "Supabase", "JavaScript", "DevOps", "Web Vitals", "Audit Logging", "REST API"],
+    liveUrl: "https://github.com/rachatapims-dotcom/anime-tour",
+    githubUrl: "https://github.com/rachatapims-dotcom/anime-tour",
+    featured: true,
+    highlights: [
+      "Architected automated CI/CD daily database backup pipeline using GitHub Actions (cron) and Node.js REST API exporter.",
+      "Implemented real-time in-browser Core Web Vitals telemetry (TTFB, LCP, CLS) streaming metrics directly to Supabase.",
+      "Built a robust system audit logger (writeSystemLog) for security tracking, authentication trails, and user actions.",
+      "Developed full-stack admin dashboard (backend.html) with role-based access control (RBAC) and booking management."
+    ],
+    highlightsThai: [
+      "ออกแบบและพัฒนาระบบสำรองข้อมูล (Backup) อัตโนมัติทุกวันด้วย GitHub Actions CI/CD ร่วมกับ Node.js REST API Exporter",
+      "พัฒนาระบบวัดผลประสิทธิภาพการใช้งานเว็บ (Core Web Vitals: TTFB, LCP, CLS) แบบ Real-time ส่งข้อมูลเข้า Supabase",
+      "สร้างระบบ Audit Logging (writeSystemLog) สำหรับบันทึกประวัติความปลอดภัยและการทำงานของผู้ใช้งานในระบบ",
+      "พัฒนาระบบ แผงควบคุมผู้ดูแลระบบ (backend.html) พร้อมระบบสิทธิ์ผู้ใช้งาน (RBAC) และการจัดการรายการจอง"
+    ],
+    architectureDetails: {
+      overview: "Anime Tour System combines a decoupled full-stack architecture with automated DevOps workflows: GitHub Actions scheduled jobs execute Node.js data extraction scripts against Supabase REST endpoints to guarantee version-controlled data resilience.",
+      overviewThai: "Anime Tour System รวมสถาปัตยกรรม Full-Stack เข้ากับ Workflow ฝั่ง DevOps: ใช้ GitHub Actions Cron รันสคริปต์ Node.js ดึงข้อมูลผ่าน Supabase REST APIs เพื่อเก็บสำรองข้อมูลย้อนหลังบน Git อย่างปลอดภัย",
+      keyContributions: [
+        "Architected automated CI/CD daily database backup pipeline using GitHub Actions (cron) and Node.js REST API exporter.",
+        "Implemented real-time in-browser Core Web Vitals telemetry (TTFB, LCP, CLS) streaming metrics directly to Supabase.",
+        "Built a robust system audit logger (writeSystemLog) for security tracking, authentication trails, and user actions.",
+        "Developed full-stack admin dashboard (backend.html) with role-based access control (RBAC) and booking management."
+      ],
+      keyContributionsThai: [
+        "ออกแบบและพัฒนาระบบสำรองข้อมูล (Backup) อัตโนมัติทุกวันด้วย GitHub Actions CI/CD ร่วมกับ Node.js REST API Exporter",
+        "พัฒนาระบบวัดผลประสิทธิภาพการใช้งานเว็บ (Core Web Vitals: TTFB, LCP, CLS) แบบ Real-time ส่งข้อมูลเข้า Supabase",
+        "สร้างระบบ Audit Logging (writeSystemLog) สำหรับบันทึกประวัติความปลอดภัยและการทำงานของผู้ใช้งานในระบบ",
+        "พัฒนาระบบ แผงควบคุมผู้ดูแลระบบ (backend.html) พร้อมระบบสิทธิ์ผู้ใช้งาน (RBAC) และการจัดการรายการจอง"
+      ]
+    },
+    whatIDid: {
+      role: "Lead Full-Stack & DevOps Engineer",
+      roleThai: "Lead Full-Stack & DevOps Engineer (นักพัฒนา Full-Stack & DevOps หลัก)",
+      goal: "To build a high-performance anime tour booking platform featuring automated database backup workflows, real-time performance telemetry, and full administrative management.",
+      goalThai: "สร้างระบบจองทัวร์การท่องเที่ยวสไตล์อนิเมะที่มีประสิทธิภาพสูง พร้อมระบบสำรองข้อมูลอัตโนมัติ (Automated Backup) ระบบวัดผล Web Vitals และแผงควบคุมหลังบ้านสำหรับผู้ดูแลระบบ",
+      whatIBuilt: "I engineered the complete application lifecycle, from the database and backup automation pipelines to the customer portal and admin dashboard.",
+      whatIBuiltThai: "ผมเป็นผู้พัฒนาโปรเจกต์นี้แบบ End-to-End ตั้งแต่การวาง Pipeline สำรองข้อมูลอัตโนมัติ การเขียนระบบหน้าบ้าน ไปจนถึงระบบหลังบ้านสำหรับ Admin:",
+      items: [
+        {
+          title: "Automated Daily Backup Pipeline (GitHub Actions & Node.js)",
+          titleThai: "ระบบสำรองข้อมูลอัตโนมัติรายวัน (GitHub Actions & Node.js)",
+          desc: "Engineered an automated CI/CD backup workflow (daily-backup.yml) running on GitHub Actions cron (0 0 * * *). Wrote export-data.js to query Supabase REST API endpoints for all 7 database tables (bookings, profiles, reviews, inquiries, metrics, logs, packages) and automatically commit version-controlled JSON snapshots back to GitHub.",
+          descThai: "เขียน Workflow สำรองข้อมูลอัตโนมัติบน GitHub Actions (daily-backup.yml) รันทุกเที่ยงคืน UTC และเขียนสคริปต์ export-data.js ดึงข้อมูลทั้ง 7 ตารางจาก Supabase REST API เพื่อ Commit ไฟล์ JSON สำรองข้อมูลกลับเข้า GitHub Repository แบบอัตโนมัติ"
+        },
+        {
+          title: "Web Vitals & Performance Telemetry",
+          titleThai: "ระบบวัดผลประสิทธิภาพเว็บ (Core Web Vitals Telemetry)",
+          desc: "Implemented in-browser performance observers (supabase-client.js) monitoring TTFB, LCP, and CLS metrics in real-time, persisting analytics directly into the performance_metrics Supabase table.",
+          descThai: "เขียนระบบวัดประสิทธิภาพหน้าเว็บแบบ Real-time (TTFB, LCP, CLS) ผ่าน PerformanceObserver และส่งข้อมูลการใช้งานเข้าไปบันทึกในตาราง performance_metrics บน Supabase"
+        },
+        {
+          title: "System Audit Logging & Security Trail",
+          titleThai: "ระบบ Audit Logging & บันทึกประวัติความปลอดภัย",
+          desc: "Developed writeSystemLog (audit-log.js) to record user authentication events, page visits, and system actions with detailed contextual metadata (user agent, URL path, timestamp) in system_logs.",
+          descThai: "พัฒนาระบบ audit-log.js สำหรับบันทึกประวัติการเข้าใช้งาน การล็อกอิน และการทำธุรกรรมในระบบ พร้อมข้อมูลบริบทอย่างละเอียดลงตาราง system_logs"
+        },
+        {
+          title: "Admin Dashboard & Control Center (backend.html)",
+          titleThai: "แผงควบคุมหลังบ้านผู้ดูแลระบบ (backend.html)",
+          desc: "Created a dedicated administrative dashboard providing real-time analytics, reservation tracking, package management, and role-based access control (RBAC).",
+          descThai: "สร้างแผงควบคุม Admin (backend.html) สำหรับติดตามยอดการจอง จัดการแพ็กเกจทัวร์ ดูสถิติระบบ และแบ่งสิทธิ์การเข้าถึงข้อมูลตาม Role ของผู้ใช้งาน"
+        }
+      ],
+      result: "A resilient, full-stack web application with automated zero-data-loss database backups, real-time Web Vitals monitoring, and comprehensive admin controls.",
+      resultThai: "ระบบเว็บแอปพลิเคชัน Full-Stack ที่มีความรัดกุมสูง พร้อมระบบสำรองข้อมูลอัตโนมัติที่ป้องกันข้อมูลสูญหาย 100% และระบบวัดผลประสิทธิภาพแบบ Real-time"
     }
   }
 ];
